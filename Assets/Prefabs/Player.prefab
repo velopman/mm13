@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55003896dada735489b709f5fa7bf48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallMultiplier: 5
+  fallMultiplier: 3.5
   lowJumpMultiplier: 4
   speedGround: 6
   forceJump: 15
@@ -272,7 +272,7 @@ MonoBehaviour:
     m_ActionId: d4f35ba8-2668-46ad-8569-3f2ca5d957a8
     m_ActionName: Player/Jump[/Keyboard/w,/Keyboard/space,/Keyboard/upArrow]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

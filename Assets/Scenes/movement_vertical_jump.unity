@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5200980510639772756, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+      propertyPath: fallMultiplier
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5200980510639772757, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
       propertyPath: m_RootOrder
       value: 1

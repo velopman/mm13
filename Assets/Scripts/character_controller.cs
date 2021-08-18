@@ -21,6 +21,7 @@ public class character_controller : MonoBehaviour
     private InputAction actionMove;
 
     private float __direction;
+    private float __jumpBuffer;
 
     void Start()
     {
@@ -32,6 +33,16 @@ public class character_controller : MonoBehaviour
 
     void Update()
     {
+        this.__jumpBuffer = Mathf.Max(0f, this.__jumpBuffer - Time.deltaTime);
+
+        if (this.actionJump.triggered)
+        {
+            this.__jumpBuffer = .1f;
+        }
+    }
+
+    void FixedUpdate()
+    {
         if (this.playerInput == null)
         {
             this.playerInput = this.GetComponent<PlayerInput>();
@@ -41,7 +52,7 @@ public class character_controller : MonoBehaviour
 
         this.walk();
 
-        if (this.collision.onGround && this.actionJump.triggered)
+        if (this.collision.onGround && this.__jumpBuffer > 0f)
         {
             this.jump();
         }

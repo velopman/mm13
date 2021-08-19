@@ -1,0 +1,6 @@
+public enum SceneName {
+    NONE,
+    MOVEMENT_HORIZONTAL_JUMP,
+    MOVEMENT_VERTICAL_JUMP,
+    MOVEMENT_OTHER,
+};

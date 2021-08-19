@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -23,12 +24,13 @@ public class character_controller : MonoBehaviour
     private float __direction;
     private float __jumpBuffer;
 
+    scene currentScene;
+
     void Start()
     {
         this.collision = this.GetComponent<collision>();
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
-
     }
 
     void Update()
@@ -94,8 +96,6 @@ public class character_controller : MonoBehaviour
 
     void __handleGravity()
     {
-        Debug.Log(this.actionJump.ReadValue<float>());
-
         if(this.rigidBody.velocity.y < 0 || this.actionJump.ReadValue<float>() == 0f)
         {
             this.rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;

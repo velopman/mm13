@@ -5,9 +5,12 @@ using UnityEngine;
 public class enemy_controller : MonoBehaviour
 {
     [SerializeField]Transform player;
+    [SerializeField]Transform eyeLocation;
 
-    float agroRange;
+    float visionRange;
+    float hearingRange;
     float moveSpeed;
+    bool isFacingLeft;
 
     Rigidbody2D rb2d;
 
@@ -15,23 +18,61 @@ public class enemy_controller : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        agroRange = 5f;
+        visionRange = 5f;
+        hearingRange = 3f;
         moveSpeed = 2f;
+        if(transform.localScale.x == 1){
+            isFacingLeft = true;
+        } else{
+            isFacingLeft = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //distance to player
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
-        // print("distToPlayer " + distToPlayer);
-        if(distToPlayer < agroRange){
-            // Chase player
+        if(Vision(visionRange, "Player")){
             ChasePlayer();
-        } else {
-            // Stop chasing player
-            StopChasingPlayer();
+        } else{
+            if(Hearing(hearingRange, "Player")){
+                ChasePlayer();
+            } else {
+                StopChasingPlayer();
+            }
         }
+    }
+
+    bool Vision(float distance, string layer) {
+        bool val = false;
+        var castDist = distance;
+
+        if(isFacingLeft) {
+            castDist = -distance;
+        }
+        
+        Vector2 endPos = eyeLocation.position + Vector3.right * castDist;
+        RaycastHit2D hit = Physics2D.Linecast(eyeLocation.position, endPos, 1 << LayerMask.NameToLayer(layer));
+
+        if(hit.collider != null){
+            val = true;
+            Debug.DrawLine(eyeLocation.position, hit.point, Color.green);
+        } else{
+            Debug.DrawLine(eyeLocation.position, endPos, Color.red);
+        }
+        return val;
+    }
+
+    bool Hearing(float distance, string gameObjectName) {
+        bool val = false;
+        Transform got = GameObject.Find(gameObjectName).transform;
+        
+        var objectDistance = (got.position - transform.position).magnitude;
+        
+        if(objectDistance < distance) {
+            val = true;
+        }
+
+        return val;
     }
 
     private void ChasePlayer(){
@@ -40,10 +81,12 @@ public class enemy_controller : MonoBehaviour
             // enemy to the left of player
             rb2d.velocity = new Vector2(moveSpeed, 0);
             transform.localScale = new Vector2(-1,1);
+            isFacingLeft = false;
         } else{
             // enemy to the right of player (or on top of it)
             rb2d.velocity = new Vector2(-moveSpeed,0);
             transform.localScale = new Vector2(1,1);
+            isFacingLeft = true;
         }
     }
 

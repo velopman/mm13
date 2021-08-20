@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class scene_controller : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class scene_controller : MonoBehaviour
         }
 
         this.currentScene = scene;
+
+        var test = FindObjectOfType<CinemachineVirtualCamera>();
+        test.m_Follow = scene.transform;
 
         this.load_adjacent(previousSceneIdentifier);
     }

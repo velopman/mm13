@@ -63,16 +63,6 @@ public class character_controller : MonoBehaviour
 
         this.__handleGravity();
 
-        if (this.rigidBody.velocity.y < 0f && this.collision.onWall)
-        {
-
-            if ((this.collision.onWallLeft && direction < 0f) ||
-                (this.collision.onWallRight && direction > 0f))
-            {
-                this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, 0f);
-            }
-        }
-
         if (direction < 0f)
         {
             this.spriteRenderer.flipX = true;

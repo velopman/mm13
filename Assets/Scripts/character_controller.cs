@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+
+
+public enum CharacterState { IDLE, WALKING, DASHING, JUMPING, WALL_JUMPING }
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,8 +12,12 @@ public class character_controller : MonoBehaviour
     public float fallMultiplier = 5f;
     public float lowJumpMultiplier = 4f;
 
-    public float speedGround = 10f;
-    public float forceJump = 50f;
+    public float speed = 10f;
+    public float jumpForce = 50f;
+    public float jumpDoubleForce = 30f;
+
+    [Header("Testing toggles")]
+    public bool onWallToJump = true;
 
     private collision collision;
     private Rigidbody2D rigidBody;
@@ -21,10 +27,14 @@ public class character_controller : MonoBehaviour
     private InputAction actionJump;
     private InputAction actionMove;
 
-    private float __direction;
-    private float __jumpBuffer;
+    private float jumpBuffer = 0f;
+    private bool canDoubleJump = true;
+    private Vector2 jumpWallVelocity;
 
     scene currentScene;
+
+
+    // Lifecycle methods
 
     void Start()
     {
@@ -35,12 +45,14 @@ public class character_controller : MonoBehaviour
 
     void Update()
     {
-        this.__jumpBuffer = Mathf.Max(0f, this.__jumpBuffer - Time.deltaTime);
+        this.jumpBuffer = Mathf.Max(0f, this.jumpBuffer - Time.deltaTime);
 
         if (this.actionJump.triggered)
         {
-            this.__jumpBuffer = .1f;
+            this.jumpBuffer = .1f;
         }
+
+        this.jumpWallVelocity = Vector2.MoveTowards(this.jumpWallVelocity, Vector2.zero, Time.deltaTime * 50f);
     }
 
     void FixedUpdate()
@@ -52,17 +64,14 @@ public class character_controller : MonoBehaviour
             this.actionMove = this.playerInput.actions["move"];
         }
 
-        this.walk();
+        this.jump();
+        this.jumpDouble();
+        this.jumpWall();
+        this.move();
 
-        if (this.collision.onGround && this.__jumpBuffer > 0f)
-        {
-            this.jump();
-        }
+        this.handleGravity();
 
         var direction = this.actionMove.ReadValue<float>();
-
-        this.__handleGravity();
-
         if (direction < 0f)
         {
             this.spriteRenderer.flipX = true;
@@ -71,20 +80,12 @@ public class character_controller : MonoBehaviour
         {
             this.spriteRenderer.flipX = false;
         }
-
     }
 
-    private void jump()
-    {
-        this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, forceJump);
-    }
 
-    private void walk()
-    {
-        this.rigidBody.velocity = new Vector2(this.actionMove.ReadValue<float>()  * this.speedGround, this.rigidBody.velocity.y);
-    }
+    // Private methods
 
-    void __handleGravity()
+    private void handleGravity()
     {
         if(this.rigidBody.velocity.y < 0 || this.actionJump.ReadValue<float>() == 0f)
         {
@@ -94,5 +95,54 @@ public class character_controller : MonoBehaviour
         {
             this.rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
+    }
+
+    private void jump()
+    {
+        if (!this.collision.onGround || this.jumpBuffer == 0f) return;
+
+        this.canDoubleJump = true;
+        this.jumpBuffer = 0f;
+
+        this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, this.jumpForce);
+    }
+
+    private void jumpDouble()
+    {
+        if (this.collision.onGround || this.collision.onWall || !this.canDoubleJump || this.jumpBuffer == 0f) return;
+
+        this.canDoubleJump = false;
+        this.jumpBuffer = 0f;
+
+        this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, this.jumpDoubleForce);
+    }
+
+    private void jumpWall()
+    {
+        if (this.collision.onGround || !this.collision.onWall || this.jumpBuffer == 0f) return;
+
+        if (this.onWallToJump)
+        {
+            var direction = this.actionMove.ReadValue<float>();
+            var requiredDirection = this.collision.onWallLeft ? -1 : 1;
+
+            if (direction != requiredDirection) return;
+        }
+
+        this.jumpBuffer = 0f;
+        this.jumpWallVelocity = Quaternion.Euler(0f, 0f, this.collision.onWallRight ? 60f : -60f) * new Vector2(0f, this.jumpForce);
+    }
+
+    private void move()
+    {
+        var moveVelocity = new Vector2(this.actionMove.ReadValue<float>() * this.speed, this.rigidBody.velocity.y);
+
+        if (this.jumpWallVelocity.magnitude > 0f)
+        {
+            moveVelocity.x *= .25f;
+            moveVelocity.y = 0f;
+        }
+
+        this.rigidBody.velocity = this.jumpWallVelocity + moveVelocity;
     }
 }

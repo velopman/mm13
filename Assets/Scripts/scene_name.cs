@@ -4,4 +4,5 @@ public enum SceneName {
     MOVEMENT_VERTICAL_JUMP,
     MOVEMENT_OTHER,
     MOVEMENT_FALL,
+    MOVEMENT_WALL_JUMP,
 };

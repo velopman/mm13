@@ -9,15 +9,18 @@ public enum CharacterState { IDLE, WALKING, DASHING, JUMPING, WALL_JUMPING }
 [RequireComponent(typeof(collision))]
 public class character_controller : MonoBehaviour
 {
-    public float fallMultiplier = 5f;
+    public float fallMultiplier = 4f;
     public float lowJumpMultiplier = 4f;
 
-    public float speed = 10f;
-    public float jumpForce = 50f;
-    public float jumpDoubleForce = 30f;
+    public float speed = 7.5f;
+    public float jumpForce = 15f;
+    public float jumpDoubleForce = 12.5f;
+    public float dashForce = 20f;
 
     [Header("Testing toggles")]
     public bool onWallToJump = true;
+    public bool canDashOnGround = true;
+    public bool canDashInAir = true;
 
     private collision collision;
     private Rigidbody2D rigidBody;
@@ -26,10 +29,16 @@ public class character_controller : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction actionJump;
     private InputAction actionMove;
+    private InputAction actionDash;
 
     private float jumpBuffer = 0f;
     private bool canDoubleJump = true;
     private Vector2 jumpWallVelocity;
+
+    private float dashBuffer = 0f;
+    private bool canDash = true;
+    private Vector2 dashVelocity;
+    private float dashCooldown = 0f;
 
     scene currentScene;
 
@@ -41,6 +50,10 @@ public class character_controller : MonoBehaviour
         this.collision = this.GetComponent<collision>();
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        this.playerInput = this.GetComponent<PlayerInput>();
+        this.actionJump = this.playerInput.actions["jump"];
+        this.actionMove = this.playerInput.actions["move"];
+        this.actionDash = this.playerInput.actions["dash"];
     }
 
     void Update()
@@ -53,17 +66,24 @@ public class character_controller : MonoBehaviour
         }
 
         this.jumpWallVelocity = Vector2.MoveTowards(this.jumpWallVelocity, Vector2.zero, Time.deltaTime * 50f);
+
+        this.dashBuffer = Mathf.Max(0f, this.dashBuffer - Time.deltaTime);
+
+        if (this.actionDash.triggered)
+        {
+            this.dashBuffer = .1f;
+        }
+
+        this.canDash |= this.collision.onGround;
+
+        this.dashVelocity = Vector2.MoveTowards(this.dashVelocity, Vector2.zero, Time.deltaTime * 50f);
+
+        this.dashCooldown = Mathf.Max(0f, this.dashCooldown - Time.deltaTime);
     }
 
     void FixedUpdate()
     {
-        if (this.playerInput == null)
-        {
-            this.playerInput = this.GetComponent<PlayerInput>();
-            this.actionJump = this.playerInput.actions["jump"];
-            this.actionMove = this.playerInput.actions["move"];
-        }
-
+        this.dash();
         this.jump();
         this.jumpDouble();
         this.jumpWall();
@@ -85,6 +105,27 @@ public class character_controller : MonoBehaviour
 
     // Private methods
 
+    private void dash()
+    {
+        var direction = this.actionMove.ReadValue<float>();
+
+        if (direction == 0f) return;
+        if (this.collision.onGround && (!this.canDashOnGround || this.dashCooldown > 0f)) return;
+        if (!this.collision.onGround && (!this.canDashInAir || !this.canDash)) return;
+
+        if (this.dashBuffer == 0f || this.dashVelocity.magnitude > 0f) return;
+
+        this.dashBuffer = 0f;
+        this.canDash = this.collision.onGround;
+
+        if (this.collision.onGround)
+        {
+            this.dashCooldown = 1f;
+        }
+
+        this.dashVelocity = new Vector2(this.jumpForce, 0f) * direction;
+    }
+
     private void handleGravity()
     {
         if(this.rigidBody.velocity.y < 0 || this.actionJump.ReadValue<float>() == 0f)
@@ -103,6 +144,8 @@ public class character_controller : MonoBehaviour
 
         this.canDoubleJump = true;
         this.jumpBuffer = 0f;
+
+        this.dashVelocity = Vector2.zero;
 
         this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, this.jumpForce);
     }
@@ -143,6 +186,6 @@ public class character_controller : MonoBehaviour
             moveVelocity.y = 0f;
         }
 
-        this.rigidBody.velocity = this.jumpWallVelocity + moveVelocity;
+        this.rigidBody.velocity = this.jumpWallVelocity + this.dashVelocity + moveVelocity;
     }
 }

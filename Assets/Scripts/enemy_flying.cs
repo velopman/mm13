@@ -17,8 +17,8 @@ public class enemy_flying : enemy_controller {
         moveSpeed = 3f;
         movementDistance = 1f;
         goingDown = true;
-        flyForce = new Vector2(0,20.0f);
-        fallForce = new Vector2(0,10.0f);
+        flyForce = new Vector2(0,18.0f);
+        fallForce = new Vector2(0,-6.0f);
         if(transform.localScale.x == 1){
             isFacingLeft = true;
         } else{
@@ -26,7 +26,7 @@ public class enemy_flying : enemy_controller {
         }
     }
 
-    void Update(){
+    void FixedUpdate(){
         Movement();
         if(Vision(visionRange, "Player")){
             ChasePlayer();
@@ -50,7 +50,7 @@ public class enemy_flying : enemy_controller {
         if(!goingDown){
             rb2d.AddForce(flyForce, ForceMode2D.Force);
         } else{
-            rb2d.AddForce(-flyForce, ForceMode2D.Force);
+            rb2d.AddForce(fallForce, ForceMode2D.Force);
         }
     }
 }

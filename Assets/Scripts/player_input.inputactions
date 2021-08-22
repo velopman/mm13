@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "move",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "4536c81a-85cb-4b7a-aab5-14811b47b433",
                     "expectedControlType": "Vector2",
                     "processors": "",

@@ -274,7 +274,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d4f35ba8-2668-46ad-8569-3f2ca5d957a8
     m_ActionName: Player/Jump[/Keyboard/w,/Keyboard/space,/Keyboard/upArrow]
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1

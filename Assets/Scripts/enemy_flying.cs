@@ -17,8 +17,8 @@ public class enemy_flying : enemy_controller {
         moveSpeed = 3f;
         movementDistance = 1f;
         goingDown = true;
-        flyForce = new Vector2(0,18.0f);
-        fallForce = new Vector2(0,-6.0f);
+        flyForce = new Vector2(0,30.0f);
+        fallForce = new Vector2(0,-10.0f);
         if(transform.localScale.x == 1){
             isFacingLeft = true;
         } else{

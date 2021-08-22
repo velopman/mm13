@@ -9,28 +9,14 @@ public class enemy_controller : MonoBehaviour
 
     protected float visionRange;
     protected float hearingRange;
-    float moveSpeed;
-    bool isFacingLeft;
+    protected Vector2 startPos;
+    protected float moveSpeed;
+    protected bool isFacingLeft;
 
-    Rigidbody2D rb2d;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-        visionRange = 5f;
-        hearingRange = 3f;
-        moveSpeed = 2f;
-        if(transform.localScale.x == 1){
-            isFacingLeft = true;
-        } else{
-            isFacingLeft = false;
-        }
-    }
+    protected Rigidbody2D rb2d;
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if(Vision(visionRange, "Player")){
             ChasePlayer();
         } else{

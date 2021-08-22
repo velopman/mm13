@@ -956,6 +956,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 0, y: -2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 9
+      m_TileSpriteIndex: 9
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 9, y: -2, z: 0}
     second:
       serializedVersion: 2
@@ -1406,6 +1416,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 0c67e831913e1694c9ca71055f8f7307, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 8aa2d2d4b7eb6f14ead443c49036e48e, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 82f2410f410501f4d82fd54d76c78644, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: -2277147151951119575, guid: f8a30f24c00b66a47bdea4814bf7eac6, type: 3}
@@ -1425,8 +1437,10 @@ Tilemap:
     m_Data: {fileID: -5408378587049232849, guid: f8a30f24c00b66a47bdea4814bf7eac6, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -7762004038957965759, guid: f8a30f24c00b66a47bdea4814bf7eac6, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 962479218992412341, guid: f8a30f24c00b66a47bdea4814bf7eac6, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 104
+  - m_RefCount: 105
     m_Data:
       e00: 1
       e01: 0
@@ -1445,7 +1459,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 104
+  - m_RefCount: 105
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1494,22 +1508,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 876268699, guid: 45ca9919f72145841b8fd17212bc39b1, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 1242728819, guid: 45ca9919f72145841b8fd17212bc39b1, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1651524276}
     - target: {fileID: 1423292754604700673, guid: 45ca9919f72145841b8fd17212bc39b1, type: 3}
       propertyPath: m_Name
       value: Slug
       objectReference: {fileID: 0}
-    - target: {fileID: 1423292754604700673, guid: 45ca9919f72145841b8fd17212bc39b1, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1423292754604700700, guid: 45ca9919f72145841b8fd17212bc39b1, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1651524276}
     - target: {fileID: 1423292754604700701, guid: 45ca9919f72145841b8fd17212bc39b1, type: 3}
       propertyPath: m_RootOrder
       value: 3

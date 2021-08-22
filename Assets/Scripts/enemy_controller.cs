@@ -7,8 +7,8 @@ public class enemy_controller : MonoBehaviour
     [SerializeField]Transform player;
     [SerializeField]Transform eyeLocation;
 
-    float visionRange;
-    float hearingRange;
+    protected float visionRange;
+    protected float hearingRange;
     float moveSpeed;
     bool isFacingLeft;
 
@@ -42,7 +42,7 @@ public class enemy_controller : MonoBehaviour
         }
     }
 
-    bool Vision(float distance, string layer) {
+    protected bool Vision(float distance, string layer) {
         bool val = false;
         var castDist = distance;
 
@@ -52,17 +52,20 @@ public class enemy_controller : MonoBehaviour
         
         Vector2 endPos = eyeLocation.position + Vector3.right * castDist;
         RaycastHit2D hit = Physics2D.Linecast(eyeLocation.position, endPos, 1 << LayerMask.NameToLayer(layer));
-
         if(hit.collider != null){
-            val = true;
-            Debug.DrawLine(eyeLocation.position, hit.point, Color.green);
-        } else{
-            Debug.DrawLine(eyeLocation.position, endPos, Color.red);
+            RaycastHit2D hitTwo = Physics2D.Linecast(eyeLocation.position, player.transform.position, 1 << LayerMask.NameToLayer("Ground"));
+
+                if(hitTwo.collider == null){
+                    val = true;
+                    Debug.DrawLine(eyeLocation.position, hit.point, Color.green);
+                } else{
+                    Debug.DrawLine(eyeLocation.position, endPos, Color.red);
+                }
         }
         return val;
     }
 
-    bool Hearing(float distance, string gameObjectName) {
+    protected bool Hearing(float distance, string gameObjectName) {
         bool val = false;
         Transform got = GameObject.Find(gameObjectName).transform;
         
@@ -75,8 +78,7 @@ public class enemy_controller : MonoBehaviour
         return val;
     }
 
-    private void ChasePlayer(){
-        // Will change this to RayCast instead! 
+    protected void ChasePlayer(){
         if(transform.position.x < player.position.x){
             // enemy to the left of player
             rb2d.velocity = new Vector2(moveSpeed, 0);
@@ -90,7 +92,7 @@ public class enemy_controller : MonoBehaviour
         }
     }
 
-    private void StopChasingPlayer(){
+    protected void StopChasingPlayer(){
         rb2d.velocity = Vector2.zero;
     }
 }

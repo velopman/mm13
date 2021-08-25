@@ -40,8 +40,6 @@ public class character_controller : MonoBehaviour
     private Vector2 dashVelocity;
     private float dashCooldown = 0f;
 
-    scene currentScene;
-
 
     // Lifecycle methods
 
@@ -123,7 +121,7 @@ public class character_controller : MonoBehaviour
             this.dashCooldown = 1f;
         }
 
-        this.dashVelocity = new Vector2(this.jumpForce, 0f) * direction;
+        this.dashVelocity = new Vector2(this.jumpForce * .75f, 0f) * direction;
     }
 
     private void handleGravity()

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
@@ -8,6 +9,7 @@ public class scene_controller : MonoBehaviour
     public float collisionRadius = .25f;
 
     scene currentScene;
+    Vector2 entryLocation;
 
     // Update is called once per frame
     void Update()
@@ -29,6 +31,7 @@ public class scene_controller : MonoBehaviour
         }
 
         this.currentScene = scene;
+        this.entryLocation = this.transform.position;
 
         var test = FindObjectOfType<CinemachineVirtualCamera>();
         test.m_Follow = scene.transform;

@@ -3,27 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class enemy_flying : enemy_controller {
-    private float movementDistance;
     private Vector2 flyForce;
     private Vector2 fallForce;
     private bool goingDown;
 
-    void Start()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-        startPos = transform.position;
-        visionRange = 5f;
-        hearingRange = 3f;
-        moveSpeed = 3f;
-        movementDistance = 1f;
+    void Start(){
+        StartInit(5f, 3f, 2f, 1f);
         goingDown = true;
         flyForce = new Vector2(0,30.0f);
         fallForce = new Vector2(0,-10.0f);
-        if(transform.localScale.x == 1){
-            isFacingLeft = true;
-        } else{
-            isFacingLeft = false;
-        }
     }
 
     void FixedUpdate(){

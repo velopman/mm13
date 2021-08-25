@@ -12,6 +12,7 @@ public class enemy_controller : MonoBehaviour
     protected Vector2 startPos;
     protected float moveSpeed;
     protected bool isFacingLeft;
+    protected float movementDistance;
 
     protected Rigidbody2D rb2d;
 
@@ -25,6 +26,21 @@ public class enemy_controller : MonoBehaviour
             } else {
                 StopChasingPlayer();
             }
+        }
+    }
+
+    // All enemy start with this
+    protected void StartInit(float vr, float hr, float ms, float md){
+        rb2d = GetComponent<Rigidbody2D>();
+        startPos = transform.position;
+        visionRange = vr;
+        hearingRange = hr;
+        moveSpeed = ms;
+        movementDistance = md;
+        if(transform.localScale.x == 1){
+            isFacingLeft = true;
+        } else{
+            isFacingLeft = false;
         }
     }
 

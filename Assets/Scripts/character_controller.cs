@@ -39,6 +39,7 @@ public class character_controller : MonoBehaviour
     private bool canDash = true;
     private Vector2 dashVelocity;
     private float dashCooldown = 0f;
+    private float facingDirection = 1f;
 
 
     // Lifecycle methods
@@ -81,6 +82,12 @@ public class character_controller : MonoBehaviour
 
     void FixedUpdate()
     {
+        var direction = this.actionMove.ReadValue<float>();
+        if (direction != 0f)
+        {
+            this.facingDirection = direction;
+        }
+
         this.dash();
         this.jump();
         this.jumpDouble();
@@ -89,7 +96,6 @@ public class character_controller : MonoBehaviour
 
         this.handleGravity();
 
-        var direction = this.actionMove.ReadValue<float>();
         if (direction < 0f)
         {
             this.spriteRenderer.flipX = true;
@@ -105,9 +111,6 @@ public class character_controller : MonoBehaviour
 
     private void dash()
     {
-        var direction = this.actionMove.ReadValue<float>();
-
-        if (direction == 0f) return;
         if (this.collision.onGround && (!this.canDashOnGround || this.dashCooldown > 0f)) return;
         if (!this.collision.onGround && (!this.canDashInAir || !this.canDash)) return;
 
@@ -116,12 +119,15 @@ public class character_controller : MonoBehaviour
         this.dashBuffer = 0f;
         this.canDash = this.collision.onGround;
 
+        float dashMultiplier = .75f;
+
         if (this.collision.onGround)
         {
             this.dashCooldown = 1f;
+            dashMultiplier = 1f;
         }
 
-        this.dashVelocity = new Vector2(this.jumpForce * .75f, 0f) * direction;
+        this.dashVelocity = new Vector2(this.jumpForce * dashMultiplier, 0f) * this.facingDirection;
     }
 
     private void handleGravity()

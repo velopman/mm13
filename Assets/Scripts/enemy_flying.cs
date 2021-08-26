@@ -8,22 +8,21 @@ public class enemy_flying : enemy_controller {
     private bool goingDown;
 
     void Start(){
-        StartInit(5f, 3f, 2f, 1f);
+        StartInit(5f, 3f, 2f, 1f, 10);
         goingDown = true;
         flyForce = new Vector2(0,30.0f);
         fallForce = new Vector2(0,-10.0f);
     }
 
+
     void FixedUpdate(){
         Movement();
-        if(Vision(visionRange, "Player")){
-            ChasePlayer();
-        } else{
-            if(Hearing(hearingRange, "Player")){
-                ChasePlayer();
-            } else {
-                StopChasingPlayer();
-            }
+        UpdateCall();
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "Player"){
+            GameObject.Find("UI").SendMessage("DealDamage", 10);
         }
     }
 

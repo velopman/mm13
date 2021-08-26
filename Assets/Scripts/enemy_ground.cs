@@ -8,31 +8,24 @@ public class enemy_ground : enemy_controller
     private Vector2 walkForce;
 
     void Start(){
-        StartInit(7f, 5f, 3f, 1f);
+        StartInit(7f, 5f, 3f, 1f, 40);
         walkForce = new Vector2(30f, 0);
         goingRight = true;
     }
 
     void FixedUpdate(){
         Movement();
-        if(Vision(visionRange, "Player")){
-            ChasePlayer();
-        } else{
-            if(Hearing(hearingRange, "Player")){
-                ChasePlayer();
-            } else {
-                StopChasingPlayer();
-            }
-        }
+        UpdateCall();
     }
 
-    private void OnCollisionEnter2D(Collision2D col) {
-        Debug.Log("Test");
-        Collider2D thisCol = col.contacts[0].collider;
-        if(col.gameObject.tag == "Ground" || thisCol.gameObject.name == "Head"){
-            Debug.Log("Test2");
+    private void OnCollisionEnter2D(Collision2D other) {
+        Collider2D thisCol = other.contacts[0].collider;
+        if(other.gameObject.tag == "Ground" || thisCol.gameObject.name == "Head"){
             goingRight = !goingRight;
             isFacingLeft = !isFacingLeft;
+        }
+        if(other.gameObject.tag == "Player"){
+            GameObject.Find("UI").SendMessage("DealDamage", 20);
         }
     }
 

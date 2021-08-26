@@ -41,7 +41,6 @@ public class character_controller : MonoBehaviour
     private float dashCooldown = 0f;
     private float facingDirection = 1f;
 
-
     // Lifecycle methods
 
     void Start()
@@ -193,3 +192,4 @@ public class character_controller : MonoBehaviour
         this.rigidBody.velocity = this.jumpWallVelocity + this.dashVelocity + moveVelocity;
     }
 }
+

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class enemy_controller : MonoBehaviour
 {
-    [SerializeField]Transform player;
-    [SerializeField]Transform eyeLocation;
+    private Transform player;
+    private Transform eyeLocation;
+    private int health;
+    private TextMeshPro healthValueText;
 
     protected float visionRange;
     protected float hearingRange;
@@ -17,7 +20,7 @@ public class enemy_controller : MonoBehaviour
     protected Rigidbody2D rb2d;
 
     // Update is called once per frame
-    void Update(){
+    protected void UpdateCall(){
         if(Vision(visionRange, "Player")){
             ChasePlayer();
         } else{
@@ -27,16 +30,22 @@ public class enemy_controller : MonoBehaviour
                 StopChasingPlayer();
             }
         }
+        healthValueText.text = health.ToString();
     }
 
     // All enemy start with this
-    protected void StartInit(float vr, float hr, float ms, float md){
+    protected void StartInit(float vr, float hr, float ms, float md, int h){
+        player = GameObject.Find("Player").GetComponent<Transform>();
+        eyeLocation = this.gameObject.transform.GetChild(0).GetComponent<Transform>();
+        healthValueText = this.gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshPro>();
+        healthValueText.text = health.ToString();
         rb2d = GetComponent<Rigidbody2D>();
         startPos = transform.position;
         visionRange = vr;
         hearingRange = hr;
         moveSpeed = ms;
         movementDistance = md;
+        health = h;
         if(transform.localScale.x == 1){
             isFacingLeft = true;
         } else{

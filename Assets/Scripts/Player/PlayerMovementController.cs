@@ -1,13 +1,14 @@
 using UnityEngine;
 
 
-public enum CharacterState { IDLE, WALKING, DASHING, JUMPING, WALL_JUMPING }
+public enum MovementState { DEFAULT, HANGING, JUMPING_UP }
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerCollisionController))]
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMovementController : MonoBehaviour
 {
+    private PlayerClingController cling;
     private PlayerCollisionController collision;
     private PlayerInputController input;
     private Rigidbody2D rigidBody;
@@ -17,6 +18,7 @@ public class PlayerMovementController : MonoBehaviour
     public float jumpForce = 15f;
     public float speed = 7.5f;
 
+    public MovementState state;
     private Vector2 dashVelocity;
     private Vector2 jumpWallVelocity;
 
@@ -25,6 +27,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void Start()
     {
+        this.cling = this.GetComponent<PlayerClingController>();
         this.collision = this.GetComponent<PlayerCollisionController>();
         this.input = this.GetComponent<PlayerInputController>();
         this.rigidBody = this.GetComponent<Rigidbody2D>();
@@ -38,11 +41,36 @@ public class PlayerMovementController : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.dash();
-        this.jump();
-        this.jumpWall();
-        this.move();
-        this.handleGravity();
+        switch (this.state)
+        {
+            case MovementState.DEFAULT:
+                this.handleCling();
+                if (this.state != MovementState.DEFAULT) return;
+
+                this.dash();
+                this.jump();
+                this.jumpWall();
+                this.move();
+                this.handleGravity();
+
+                break;
+
+            case MovementState.HANGING:
+                this.jumpUp();
+
+                break;
+
+            case MovementState.JUMPING_UP:
+                this.handleGravity();
+                this.move();
+
+                if (this.collision.onGround)
+                {
+                    this.state = MovementState.DEFAULT;
+                }
+
+                break;
+        }
     }
 
 
@@ -55,6 +83,17 @@ public class PlayerMovementController : MonoBehaviour
         this.input.ResetDash();
 
         this.dashVelocity = new Vector2(this.jumpForce, 0f) * this.input.facing;
+    }
+
+    private void handleCling()
+    {
+        if(!this.cling.canCling) return;
+        if(this.input.direction != this.cling.direction) return;
+        if(this.rigidBody.velocity.y > 10f) return;
+
+        this.state = MovementState.HANGING;
+        this.rigidBody.velocity = Vector2.zero;
+        this.rigidBody.gravityScale = 0f;
     }
 
     private void handleGravity()
@@ -71,13 +110,21 @@ public class PlayerMovementController : MonoBehaviour
         this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, this.jumpForce);
     }
 
+    private void jumpUp()
+    {
+        if(!this.input.jumpTriggered) return;
+
+        this.rigidBody.velocity = Vector2.up * this.jumpForce;
+        this.state = MovementState.JUMPING_UP;
+    }
+
     private void jumpWall()
     {
         if (!this.input.jumpTriggered || this.collision.wasOnGround || !this.collision.onWall) return;
 
         this.input.ResetJump();
 
-        this.jumpWallVelocity = Quaternion.Euler(0f, 0f, this.collision.onWallRight ? 60f : -60f) * new Vector2(0f, this.jumpForce);
+        this.jumpWallVelocity = Quaternion.Euler(0f, 0f, this.collision.wallDirection * 60f) * new Vector2(0f, this.jumpForce);
     }
 
     private void move()

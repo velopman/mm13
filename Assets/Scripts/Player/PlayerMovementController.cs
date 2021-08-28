@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public enum MovementState { DEFAULT, HANGING, JUMPING_UP }
+public enum MovementState { DEFAULT, HANGING, JUMPING_UP, FALLING_DOWN }
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerCollisionController))]
@@ -21,6 +21,7 @@ public class PlayerMovementController : MonoBehaviour
     public MovementState state;
     private Vector2 dashVelocity;
     private Vector2 jumpWallVelocity;
+    private float fallRemaining;
 
 
     // Lifecycle methods
@@ -57,6 +58,8 @@ public class PlayerMovementController : MonoBehaviour
 
             case MovementState.HANGING:
                 this.jumpUp();
+                if(this.state != MovementState.HANGING) return;
+                this.fallDown();
 
                 break;
 
@@ -65,6 +68,19 @@ public class PlayerMovementController : MonoBehaviour
                 this.move();
 
                 if (this.collision.onGround)
+                {
+                    this.state = MovementState.DEFAULT;
+                }
+
+                break;
+
+            case MovementState.FALLING_DOWN:
+                this.handleGravity();
+                this.move();
+
+                this.fallRemaining = Mathf.Max(0f, this.fallRemaining - Time.deltaTime);
+
+                if (this.fallRemaining == 0f)
                 {
                     this.state = MovementState.DEFAULT;
                 }
@@ -83,6 +99,17 @@ public class PlayerMovementController : MonoBehaviour
         this.input.ResetDash();
 
         this.dashVelocity = new Vector2(this.jumpForce, 0f) * this.input.facing;
+    }
+
+    private void fallDown()
+    {
+        if (!this.input.fallTriggered) return;
+
+        this.input.ResetFall();
+
+        this.rigidBody.gravityScale = 1f;
+        this.fallRemaining = .25f;
+        this.state = MovementState.FALLING_DOWN;
     }
 
     private void handleCling()
@@ -114,6 +141,9 @@ public class PlayerMovementController : MonoBehaviour
     {
         if(!this.input.jumpTriggered) return;
 
+        this.input.ResetJump();
+
+        this.rigidBody.gravityScale = 1f;
         this.rigidBody.velocity = Vector2.up * this.jumpForce;
         this.state = MovementState.JUMPING_UP;
     }

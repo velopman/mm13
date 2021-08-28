@@ -8,6 +8,7 @@ public class PlayerInputController : MonoBehaviour
     private InputAction actionMove;
 
     private InputBuffer dashBuffer;
+    private InputBuffer fallBuffer;
     private InputBuffer jumpBuffer;
     private float moveDirection;
     private float facingDirection;
@@ -20,12 +21,14 @@ public class PlayerInputController : MonoBehaviour
         this.actionMove = this.playerInput.actions["move"];
 
         this.dashBuffer = new InputBuffer(this.playerInput.actions["dash"], .1f);
+        this.fallBuffer = new InputBuffer(this.playerInput.actions["fall"], .1f);
         this.jumpBuffer = new InputBuffer(this.playerInput.actions["jump"], .1f);
     }
 
     void Update()
     {
         this.dashBuffer.Update();
+        this.fallBuffer.Update();
         this.jumpBuffer.Update();
 
         this.moveDirection = this.actionMove.ReadValue<float>();
@@ -44,6 +47,14 @@ public class PlayerInputController : MonoBehaviour
         get
         {
             return this.dashBuffer.triggered;
+        }
+    }
+
+    public bool fallTriggered
+    {
+        get
+        {
+            return this.fallBuffer.triggered;
         }
     }
 
@@ -76,6 +87,11 @@ public class PlayerInputController : MonoBehaviour
     public void ResetDash()
     {
         this.dashBuffer.Reset();
+    }
+
+    public void ResetFall()
+    {
+        this.fallBuffer.Reset();
     }
 
     public void ResetJump()

@@ -12,10 +12,12 @@ GameObject:
   - component: {fileID: 5200980510639772762}
   - component: {fileID: 5200980510639772763}
   - component: {fileID: 5200980510639772760}
-  - component: {fileID: 5200980510639772756}
-  - component: {fileID: 1388346721}
   - component: {fileID: 1388346722}
-  - component: {fileID: 263649213}
+  - component: {fileID: 1657137846}
+  - component: {fileID: 1657137847}
+  - component: {fileID: 1657137848}
+  - component: {fileID: 1657137849}
+  - component: {fileID: 1657137850}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -136,47 +138,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5200980510639772756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5200980510639772761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55003896dada735489b709f5fa7bf48f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallMultiplier: 4
-  lowJumpMultiplier: 4
-  speed: 7.5
-  jumpForce: 15
-  jumpDoubleForce: 12.5
-  onWallToJump: 1
---- !u!114 &1388346721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5200980510639772761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 724d66c3f6c787d448888390f4075f0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerGround:
-    serializedVersion: 2
-    m_Bits: 64
-  collisionRadius: 0.25
-  offsetBottom: {x: 0, y: -1}
-  offsetLeft: {x: -0.5, y: 0}
-  offsetRight: {x: 0.5, y: 0}
-  onGround: 0
-  onWall: 0
-  onWallLeft: 0
-  onWallRight: 0
 --- !u!114 &1388346722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +240,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &263649213
+--- !u!114 &1657137846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,10 +249,89 @@ MonoBehaviour:
   m_GameObject: {fileID: 5200980510639772761}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fb885a38b5d5df40b0c16f4f0aed4ac, type: 3}
+  m_Script: {fileID: 11500000, guid: eed112e4d7b5eed47a938d16387906d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerGround:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionRadius: 0.25
+  offsetBottom: {x: 0, y: -1}
+  offsetLeft: {x: -0.5, y: 0}
+  offsetClingLeft: {x: -0.5, y: 1}
+  offsetRight: {x: 0.5, y: 0}
+  offsetClingRight: {x: 0.5, y: 1}
+  onGround: 0
+  onWall: 0
+  onWallLeft: 0
+  onWallRight: 0
+  canClingLeft: 0
+  canClingRight: 0
+--- !u!114 &1657137847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200980510639772761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6745772774d224bbb4a4eb1b7c2539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForce: 20
+  fallMultiplier: 4
+  jumpForce: 15
+  speed: 7.5
+  state: 0
+--- !u!114 &1657137848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200980510639772761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981ce44848e73db428f9288fbba807e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1657137849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200980510639772761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98274225fa984fd45adf9c77b2eb4254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerScene:
     serializedVersion: 2
     m_Bits: 256
   collisionRadius: 0.25
+--- !u!114 &1657137850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200980510639772761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75e32d412164714d981ecaa7c1dae50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerGround:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionRadius: 0.25
+  offsetLeft: {x: -0.5, y: 0.5}
+  offsetTopLeft: {x: -0.5, y: 1}
+  offsetRight: {x: 0.5, y: 0.5}
+  offsetTopRight: {x: 0.5, y: 1}
+  canCling: 0
+  canClingLeft: 0
+  canClingRight: 0

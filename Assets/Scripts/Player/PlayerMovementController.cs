@@ -64,7 +64,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void jump()
     {
-        if (!this.input.jumpTriggered || !this.collision.onGround) return;
+        if (!this.input.jumpTriggered || !this.collision.wasOnGround) return;
 
         this.input.ResetJump();
 
@@ -73,7 +73,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void jumpWall()
     {
-        if (!this.input.jumpTriggered || this.collision.onGround || !this.collision.onWall) return;
+        if (!this.input.jumpTriggered || this.collision.wasOnGround || !this.collision.onWall) return;
 
         this.input.ResetJump();
 

@@ -15,11 +15,23 @@ public class PlayerCollisionController : MonoBehaviour
     public bool onWallRight;
 
 
+    private float onGroundTime = 0f;
+
+
     // Lifecycle methods
 
     void Update()
     {
         this.onGround = Physics2D.OverlapCircle((Vector2)this.transform.position + this.offsetBottom, this.collisionRadius, this.layerGround);
+        if (this.onGround)
+        {
+            this.onGroundTime = .15f;
+        }
+        else
+        {
+            this.onGroundTime = Mathf.Max(0f, this.onGroundTime - Time.deltaTime);
+        }
+
         this.onWallLeft = Physics2D.OverlapCircle((Vector2)this.transform.position + this.offsetLeft, this.collisionRadius, this.layerGround);
         this.onWallRight = Physics2D.OverlapCircle((Vector2)this.transform.position + this.offsetRight, this.collisionRadius, this.layerGround);
 
@@ -31,5 +43,16 @@ public class PlayerCollisionController : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)this.transform.position + this.offsetBottom, this.collisionRadius);
         Gizmos.DrawWireSphere((Vector2)this.transform.position + this.offsetLeft, this.collisionRadius);
         Gizmos.DrawWireSphere((Vector2)this.transform.position + this.offsetRight, this.collisionRadius);
+    }
+
+
+    // Accessor methods
+
+    public bool wasOnGround
+    {
+        get
+        {
+            return this.onGroundTime > 0f;
+        }
     }
 }

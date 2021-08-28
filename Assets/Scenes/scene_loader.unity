@@ -182,7 +182,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5200980510639772756, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+    - {fileID: 1388346721, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+    - {fileID: 263649213, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
 --- !u!4 &263649220 stripped
 Transform:
@@ -472,6 +475,78 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1657137845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5200980510639772761, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+  m_PrefabInstance: {fileID: 81420906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1657137846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657137845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed112e4d7b5eed47a938d16387906d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerGround:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionRadius: 0.25
+  offsetBottom: {x: 0, y: -1}
+  offsetLeft: {x: -0.5, y: 0}
+  offsetRight: {x: 0.5, y: 0}
+  onGround: 0
+  onWall: 0
+  onWallLeft: 0
+  onWallRight: 0
+--- !u!114 &1657137847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657137845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6745772774d224bbb4a4eb1b7c2539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForce: 20
+  fallMultiplier: 4
+  jumpForce: 15
+  speed: 7.5
+--- !u!114 &1657137848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657137845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981ce44848e73db428f9288fbba807e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1657137849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657137845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98274225fa984fd45adf9c77b2eb4254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerScene:
+    serializedVersion: 2
+    m_Bits: 256
+  collisionRadius: 0.25
 --- !u!1 &1682674176
 GameObject:
   m_ObjectHideFlags: 3
@@ -725,7 +800,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7769231, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

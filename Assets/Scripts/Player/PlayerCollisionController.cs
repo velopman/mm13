@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class collision : MonoBehaviour
+public class PlayerCollisionController : MonoBehaviour
 {
     [Header("Settings")]
     public LayerMask layerGround;
@@ -14,6 +14,8 @@ public class collision : MonoBehaviour
     public bool onWallLeft;
     public bool onWallRight;
 
+
+    // Lifecycle methods
 
     void Update()
     {

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class utility
+public class Utility
 {
     static public IEnumerator frameFreeze(float timeScale, float waitTime)
     {

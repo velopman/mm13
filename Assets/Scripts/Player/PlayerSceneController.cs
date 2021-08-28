@@ -1,14 +1,13 @@
-using System.Collections;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Cinemachine;
 
-public class scene_controller : MonoBehaviour
+public class PlayerSceneController : MonoBehaviour
 {
     public LayerMask layerScene;
     public float collisionRadius = .25f;
 
-    scene currentScene;
+    Scene currentScene;
     Vector2 entryLocation;
 
     // Update is called once per frame
@@ -17,7 +16,7 @@ public class scene_controller : MonoBehaviour
         var scene_collider = Physics2D.OverlapCircle((Vector2)this.transform.position, this.collisionRadius, this.layerScene);
         if (!scene_collider) return;
 
-        var scene = scene_collider.GetComponent<scene>();
+        var scene = scene_collider.GetComponent<Scene>();
 
         var previousSceneIdentifier = SceneName.NONE;
 

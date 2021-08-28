@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class scene : MonoBehaviour
+public class Scene : MonoBehaviour
 {
     public SceneName identifer;
     public SceneName[] adjacent;
 
-    private spawn_location[] spawnLocations;
+    private SceneSpawnLocation[] spawnLocations;
 
     void Start()
     {
-        this.spawnLocations = this.GetComponentsInChildren<spawn_location>();
+        this.spawnLocations = this.GetComponentsInChildren<SceneSpawnLocation>();
     }
 
     public Vector2 respawn_location(Vector2 entry)

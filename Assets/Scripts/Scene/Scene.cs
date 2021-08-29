@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Scene : MonoBehaviour
 {
@@ -6,6 +7,14 @@ public class Scene : MonoBehaviour
     public SceneName[] adjacent;
 
     private SceneSpawnLocation[] spawnLocations;
+
+    void OnValidate()
+    {
+        // var tilemap = this.GetComponentInChildren<Tilemap>();
+        // Debug.Log("[" + this.identifer.ToString() + "]" + (this.transform.position + tilemap.cellBounds.center));
+        // this.transform.position += tilemap.cellBounds.center - new Vector3(0f, 0f, .5f);
+        // tilemap.tileAnchor -= tilemap.cellBounds.center;
+    }
 
     void Start()
     {

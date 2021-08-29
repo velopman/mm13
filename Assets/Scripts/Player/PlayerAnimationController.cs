@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     private PlayerInputController input;
-    private SpriteRenderer renderer;
+    private new SpriteRenderer renderer;
 
     // Lifecycle methods
 

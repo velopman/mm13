@@ -57,6 +57,13 @@ public class PlayerMovementController : MonoBehaviour
                 break;
 
             case MovementState.HANGING:
+                if (!this.cling.canCling)
+                {
+                    this.state = MovementState.DEFAULT;
+                    this.rigidBody.gravityScale = 0f;
+                    return;
+                }
+
                 this.jumpUp();
                 if(this.state != MovementState.HANGING) return;
                 this.fallDown();

@@ -16,6 +16,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
-        this.renderer.flipX = this.input.direction < 0f;
+        this.renderer.flipX = this.input.facing < 0f;
     }
 }

@@ -6,7 +6,7 @@ public class PlayerCollisionController : MonoBehaviour
     public LayerMask layerGround;
     public float collisionRadius = .25f;
 
-    public Vector2 offsetBottom, offsetLeft, offsetClingLeft, offsetRight, offsetClingRight;
+    public Vector2 offsetBottom, offsetLeft, offsetRight;
 
 
     [Header("State")]
@@ -15,16 +15,13 @@ public class PlayerCollisionController : MonoBehaviour
     public bool onWallLeft;
     public bool onWallRight;
 
-    public bool canClingLeft;
-    public bool canClingRight;
-
 
     private float onGroundTime = 0f;
 
 
     // Lifecycle methods
 
-    void Update()
+    void FixedUpdate()
     {
         this.onGround = this.checkCollision(this.offsetBottom);
         if (this.onGround)

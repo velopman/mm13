@@ -130,6 +130,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1657137846, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+      propertyPath: collisionRadius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657137850, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+      propertyPath: collisionRadius
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657137850, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+      propertyPath: offsetTopLeft.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657137850, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+      propertyPath: offsetTopRight.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657137850, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+      propertyPath: collisionRadiusTop
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 5200980510639772757, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -721,7 +741,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7769231, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

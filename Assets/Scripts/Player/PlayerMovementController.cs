@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public enum MovementState { DEFAULT, HANGING, JUMPING_UP, FALLING_DOWN }
+public enum MovementState { DEFAULT, HANGING, POST_HANGING }
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerCollisionController))]
@@ -21,7 +21,7 @@ public class PlayerMovementController : MonoBehaviour
     public MovementState state;
     private Vector2 dashVelocity;
     private Vector2 jumpWallVelocity;
-    private float fallRemaining;
+    private float postHangingCooldown;
 
 
     // Lifecycle methods
@@ -63,25 +63,15 @@ public class PlayerMovementController : MonoBehaviour
 
                 break;
 
-            case MovementState.JUMPING_UP:
+            case MovementState.POST_HANGING:
                 this.handleGravity();
                 this.move();
 
-                if (this.collision.onGround)
+                this.postHangingCooldown = Mathf.Max(0f, this.postHangingCooldown - Time.fixedDeltaTime);
+
+                if (this.collision || this.postHangingCooldown == 0f)
                 {
-                    this.state = MovementState.DEFAULT;
-                }
-
-                break;
-
-            case MovementState.FALLING_DOWN:
-                this.handleGravity();
-                this.move();
-
-                this.fallRemaining = Mathf.Max(0f, this.fallRemaining - Time.deltaTime);
-
-                if (this.fallRemaining == 0f)
-                {
+                    this.postHangingCooldown = 0f;
                     this.state = MovementState.DEFAULT;
                 }
 
@@ -108,15 +98,16 @@ public class PlayerMovementController : MonoBehaviour
         this.input.ResetFall();
 
         this.rigidBody.gravityScale = 1f;
-        this.fallRemaining = .25f;
-        this.state = MovementState.FALLING_DOWN;
+
+        this.postHangingCooldown = .25f;
+        this.state = MovementState.POST_HANGING;
     }
 
     private void handleCling()
     {
-        if(!this.cling.canCling) return;
-        if(this.input.direction != this.cling.direction) return;
-        if(this.rigidBody.velocity.y > 10f) return;
+        if (!this.cling.canCling) return;
+        if (this.input.direction != this.cling.direction) return;
+        if (this.rigidBody.velocity.y > 10f) return;
 
         this.state = MovementState.HANGING;
         this.rigidBody.velocity = Vector2.zero;
@@ -125,7 +116,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void handleGravity()
     {
-        this.rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        this.rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
     }
 
     private void jump()
@@ -145,7 +136,9 @@ public class PlayerMovementController : MonoBehaviour
 
         this.rigidBody.gravityScale = 1f;
         this.rigidBody.velocity = Vector2.up * this.jumpForce;
-        this.state = MovementState.JUMPING_UP;
+
+        this.postHangingCooldown = .25f;
+        this.state = MovementState.POST_HANGING;
     }
 
     private void jumpWall()

@@ -12,6 +12,9 @@ public class enemy_flying : enemy_controller {
         goingDown = true;
         flyForce = new Vector2(0,30.0f);
         fallForce = new Vector2(0,-10.0f);
+
+        var health = this.GetComponent<HealthController>();
+        health.onDeath += this.death;
     }
 
 
@@ -22,7 +25,8 @@ public class enemy_flying : enemy_controller {
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "Player"){
-            GameObject.Find("UI").SendMessage("DealDamage", 10);
+            var health = other.gameObject.GetComponent<HealthController>();
+            health.damage(1);
         }
     }
 
@@ -39,5 +43,11 @@ public class enemy_flying : enemy_controller {
         } else{
             rb2d.AddForce(fallForce, ForceMode2D.Force);
         }
+    }
+
+    // Callback methods
+    void death(HealthController self)
+    {
+        Destroy(this.gameObject);
     }
 }

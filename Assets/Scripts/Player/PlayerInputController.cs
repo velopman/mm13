@@ -11,7 +11,7 @@ public class PlayerInputController : MonoBehaviour
     private InputBuffer fallBuffer;
     private InputBuffer jumpBuffer;
     private float moveDirection;
-    private float facingDirection;
+    private float facingDirection = 1f;
 
     // Lifecycle methods
 

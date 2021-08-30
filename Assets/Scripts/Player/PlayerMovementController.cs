@@ -32,6 +32,9 @@ public class PlayerMovementController : MonoBehaviour
         this.collision = this.GetComponent<PlayerCollisionController>();
         this.input = this.GetComponent<PlayerInputController>();
         this.rigidBody = this.GetComponent<Rigidbody2D>();
+
+        var health = this.GetComponent<PlayerHealthController>();
+        health.onDeath += this.onDeath;
     }
 
     void Update()
@@ -168,5 +171,19 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         this.rigidBody.velocity = this.jumpWallVelocity + this.dashVelocity + moveVelocity;
+    }
+
+
+    // Callback methods
+
+    private void onDeath(HealthController self)
+    {
+        this.rigidBody.velocity = Vector2.zero;
+        this.rigidBody.gravityScale = 1f;
+
+        this.dashVelocity = Vector2.zero;
+        this.jumpWallVelocity = Vector2.zero;
+
+        this.state = MovementState.DEFAULT;
     }
 }

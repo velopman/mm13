@@ -10,7 +10,16 @@ public class PlayerSceneController : MonoBehaviour
     Scene currentScene;
     Vector2 entryLocation;
 
-    // Update is called once per frame
+
+    // Lifecycle methods
+
+    void Start()
+    {
+        var health = this.GetComponent<PlayerHealthController>();
+        health.onDeath += this.onDeath;
+    }
+
+
     void Update()
     {
         var scene_collider = Physics2D.OverlapCircle((Vector2)this.transform.position, this.collisionRadius, this.layerScene);
@@ -26,7 +35,7 @@ public class PlayerSceneController : MonoBehaviour
 
             previousSceneIdentifier = this.currentScene.identifer;
 
-            this.unload_adjacent(scene.identifer);
+            this.unloadAdjacent(scene.identifer);
         }
 
         this.currentScene = scene;
@@ -35,10 +44,13 @@ public class PlayerSceneController : MonoBehaviour
         var test = FindObjectOfType<CinemachineVirtualCamera>();
         test.m_Follow = scene.transform;
 
-        this.load_adjacent(previousSceneIdentifier);
+        this.loadAdjacent(previousSceneIdentifier);
     }
 
-    void load_adjacent(SceneName excluding = SceneName.NONE)
+
+    // Private Methods
+
+    void loadAdjacent(SceneName excluding = SceneName.NONE)
     {
         foreach (var scene in this.currentScene.adjacent)
         {
@@ -48,7 +60,7 @@ public class PlayerSceneController : MonoBehaviour
         }
     }
 
-    void unload_adjacent(SceneName excluding = SceneName.NONE)
+    void unloadAdjacent(SceneName excluding = SceneName.NONE)
     {
         foreach (var scene in this.currentScene.adjacent)
         {
@@ -56,5 +68,13 @@ public class PlayerSceneController : MonoBehaviour
 
             SceneManager.UnloadSceneAsync(scene.ToString().ToLower());
         }
+    }
+
+
+    // Callback methods
+
+    private void onDeath(HealthController self)
+    {
+        this.transform.position = this.currentScene.respawn_location(this.entryLocation);
     }
 }

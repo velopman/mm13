@@ -1,9 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 class PlayerAttackController : MonoBehaviour
 {
+    public LayerMask enemyLayer;
+
     private PlayerInputController input;
 
     private Vector2[] meleeCheckLocations;
@@ -51,6 +54,8 @@ class PlayerAttackController : MonoBehaviour
     {
         this.meleeCheckLocations = new Vector2[4];
 
+        var hit = new List<int>();
+
         for (float rotation = 0f; rotation < 90f; rotation += 9f)
         {
             var offset = Quaternion.Euler(0f, 0f, -this.input.facing * (45f + rotation)) * Vector2.up;
@@ -59,10 +64,14 @@ class PlayerAttackController : MonoBehaviour
             {
                 this.meleeCheckLocations[i] = offset * .5f * (i + 1);
 
-                var other = Physics2D.OverlapCircle((Vector2)this.transform.position + this.meleeCheckLocations[i], .25f);
+                var other = Physics2D.OverlapCircle((Vector2)this.transform.position + this.meleeCheckLocations[i], .25f, enemyLayer);
                 if (!other) continue;
 
                 var health = other.GetComponent<HealthController>();
+                if (hit.Contains(health.GetInstanceID())) continue;
+
+                health.damage(1);
+                hit.Add(health.GetInstanceID());
             }
 
             yield return new WaitForSeconds(.025f);

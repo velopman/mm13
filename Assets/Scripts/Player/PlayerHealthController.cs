@@ -7,8 +7,7 @@ class PlayerHealthController : HealthController
 
     void Start()
     {
-        this.onDamaged += this.debugDamaged;
-        this.onDeath += this.debugDeath;
+        this.health = this.maxHealth;
         this.onDeath += this.death;
     }
 
@@ -17,18 +16,5 @@ class PlayerHealthController : HealthController
     void death(HealthController self)
     {
         this.health = this.maxHealth;
-    }
-
-
-    // Test methods
-
-    void debugDamaged(HealthController self, int health)
-    {
-        Debug.Log("Damaged, health remaining: " + health);
-    }
-
-    void debugDeath(HealthController self)
-    {
-        Debug.Log("Deaded");
     }
 }

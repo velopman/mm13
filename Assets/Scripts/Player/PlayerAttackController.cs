@@ -38,10 +38,6 @@ class PlayerAttackController : MonoBehaviour
     private void attackMelee()
     {
         if (!this.input.meleeTriggered) return;
-
-        var health = this.GetComponent<PlayerHealthController>();
-        health.damage(1);
-
         if(this.meleeCheckLocations != null) return;
 
         this.input.ResetMelee();

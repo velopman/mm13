@@ -12,7 +12,7 @@ public class CameraConfiner : MonoBehaviour
 
     // Lifecycle methods
 
-    void Update()
+    void FixedUpdate()
     {
         if (this.collider == null) return;
 
@@ -26,7 +26,10 @@ public class CameraConfiner : MonoBehaviour
 
         if (this.transform.position == this.closestPoint) return;
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, this.closestPoint, Time.deltaTime * 75f);
+        var distance = Vector3.Distance(this.transform.position, this.closestPoint);
+        var damping = Mathf.Clamp(distance * distance * 0.05f, 0.01f, 1.0f);
+
+        this.transform.position = Vector3.MoveTowards(this.transform.position, this.closestPoint, Time.fixedDeltaTime * 75f * damping);
     }
 
     void OnDrawGizmos()

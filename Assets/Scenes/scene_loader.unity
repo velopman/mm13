@@ -560,9 +560,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 236307102fb8ed446a95b47dfcd4c0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   collider: {fileID: 0}
   halfSize: {x: 11, y: 6}
-  closestPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &1966808714
 GameObject:
   m_ObjectHideFlags: 0

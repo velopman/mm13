@@ -7,8 +7,9 @@ public class PlayerSceneController : MonoBehaviour
     public LayerMask layerScene;
     public float collisionRadius = .25f;
 
-    Scene currentScene;
-    Vector2 entryLocation;
+    private CameraConfiner confiner;
+    private Scene currentScene;
+    private Vector2 entryLocation;
 
 
     // Lifecycle methods
@@ -17,6 +18,10 @@ public class PlayerSceneController : MonoBehaviour
     {
         var health = this.GetComponent<PlayerHealthController>();
         health.onDeath += this.onDeath;
+
+        var camera = FindObjectOfType<Camera>();
+        this.confiner = camera.GetComponent<CameraConfiner>();
+        this.confiner.target = this.gameObject;
     }
 
 
@@ -41,8 +46,7 @@ public class PlayerSceneController : MonoBehaviour
         this.currentScene = scene;
         this.entryLocation = this.transform.position;
 
-        var test = FindObjectOfType<CinemachineVirtualCamera>();
-        test.m_Follow = scene.transform;
+        this.confiner.collider = (BoxCollider2D)scene_collider;
 
         this.loadAdjacent(previousSceneIdentifier);
     }

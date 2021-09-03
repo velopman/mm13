@@ -46,7 +46,7 @@ public class PlayerSceneController : MonoBehaviour
         this.currentScene = scene;
         this.entryLocation = this.transform.position;
 
-        this.confiner.collider = (BoxCollider2D)scene_collider;
+        this.confiner.SetCameraBounds(scene_collider.bounds);
 
         this.loadAdjacent(previousSceneIdentifier);
     }

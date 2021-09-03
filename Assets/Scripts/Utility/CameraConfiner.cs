@@ -1,48 +1,75 @@
 using UnityEngine;
-using Cinemachine;
 
 public class CameraConfiner : MonoBehaviour
 {
     public GameObject target;
-    public new BoxCollider2D collider;
-    public Vector2 halfSize = new Vector2(11f, 5f);
+    public Vector2 screenSize = new Vector2(22f, 12f);
+    public Vector2 cameraDeadZone = new Vector2(16f, 6f);
 
-    private Vector3 closestPoint;
+    private bool boundsSet;
+    private Bounds cameraBounds;
+    private Bounds targetBounds;
+
+    private Vector2 closestPointCamera;
+    private Vector2 closestPointTarget;
 
 
     // Lifecycle methods
 
+    void Start()
+    {
+        this.targetBounds = new Bounds(
+            Vector3.zero,
+            this.cameraDeadZone
+        );
+    }
+
     void FixedUpdate()
     {
-        if (this.collider == null) return;
+        if (!this.boundsSet) return;
 
-        var min = (Vector2)this.collider.bounds.min + this.halfSize;
-        var max = (Vector2)this.collider.bounds.max - this.halfSize;
+        var cameraPosition = (Vector2) this.transform.position;
+        var targetPosition = (Vector2) this.target.transform.position;
 
-        var x = Mathf.Clamp(this.target.transform.position.x, min.x, max.x);
-        var y = Mathf.Clamp(this.target.transform.position.y, min.y, max.y);
 
-        this.closestPoint = new Vector3(x, y, -100f);
+        this.targetBounds.center = this.transform.position;
+        this.closestPointTarget = this.targetBounds.ClosestPoint(targetPosition);
 
-        if (this.transform.position == this.closestPoint) return;
+        var cameraTargetPosition = cameraPosition;
+        cameraTargetPosition += targetPosition - this.closestPointTarget;
 
-        var distance = Vector3.Distance(this.transform.position, this.closestPoint);
-        var damping = Mathf.Clamp(distance * distance * 0.05f, 0.01f, 1.0f);
+        this.closestPointCamera = this.cameraBounds.ClosestPoint(cameraTargetPosition);
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, this.closestPoint, Time.fixedDeltaTime * 75f * damping);
+        var distance = Vector3.Distance(cameraPosition, this.closestPointCamera) + .5f;
+        var damping = Mathf.Clamp(distance * distance * .05f, 0.01f, 1.0f);
+
+        var desiredPosition = (Vector3) this.closestPointCamera;
+        desiredPosition.z = this.transform.position.z;
+
+        this.transform.position = Vector3.MoveTowards(
+            this.transform.position,
+            desiredPosition,
+            Time.fixedDeltaTime * 75f * damping
+        );
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere((Vector2)this.closestPoint, .25f);
+        Gizmos.DrawWireSphere((Vector2)this.closestPointTarget, .25f);
+        Gizmos.DrawWireSphere((Vector2)this.closestPointCamera, .25f);
         Gizmos.DrawWireSphere((Vector2)this.transform.position, .25f);
+        Gizmos.DrawWireCube((Vector2)this.cameraBounds.center, this.cameraBounds.size);
+        Gizmos.DrawWireCube((Vector2)this.targetBounds.center, this.targetBounds.size);
     }
 
+    // Public methods
 
-    // Private methods
-
-    private bool isInside(Vector3 offset)
+    public void SetCameraBounds(Bounds bounds)
     {
-        return this.collider.bounds.Contains(this.transform.position + offset);
+        this.boundsSet = true;
+        this.cameraBounds = new Bounds(
+            bounds.center,
+            (Vector2)bounds.size - this.screenSize
+        );
     }
 }

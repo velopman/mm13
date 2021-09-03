@@ -561,8 +561,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  collider: {fileID: 0}
-  halfSize: {x: 11, y: 6}
+  screenSize: {x: 22, y: 12}
+  cameraDeadZone: {x: 5, y: 5}
 --- !u!1 &1966808714
 GameObject:
   m_ObjectHideFlags: 0

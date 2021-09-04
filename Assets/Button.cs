@@ -20,7 +20,7 @@ public class Button : MonoBehaviour
             //     }
             // }
             foreach(GameObject door in connectedDoors){
-                door.GetComponent<BoxCollider2D>().enabled = false;
+                door.SendMessage("buttonActive", 0);
             }
             transform.GetComponent<SpriteRenderer>().enabled = false;        
         }

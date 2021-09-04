@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3587008688128190741}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 7965885065113476212}
   - component: {fileID: 1933670703064052253}
   - component: {fileID: 323902727857975075}
-  m_Layer: 9
+  - component: {fileID: 999593095}
+  m_Layer: 10
   m_Name: Flybat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,8 +105,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1698339469
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c57663dbe258d33469f91efac0d073fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,6 +178,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.29229665, y: 0.33607227}
   m_EdgeRadius: 0
+--- !u!114 &999593095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2183557154741107825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e916475b1bcee5a469f6db14152e1835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
 --- !u!1 &5993063567838622416
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +202,7 @@ GameObject:
   - component: {fileID: 7579478098029099653}
   - component: {fileID: 1250124026516879460}
   - component: {fileID: 2970808025286499608}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: HealthValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}

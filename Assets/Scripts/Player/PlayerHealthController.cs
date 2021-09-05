@@ -31,6 +31,6 @@ class PlayerHealthController : HealthController
 
     void debugDeath(HealthController self)
     {
-        Debug.Log("Deaded");
+        Debug.Log("Deadededed");
     }
 }

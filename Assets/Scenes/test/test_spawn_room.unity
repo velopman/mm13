@@ -1312,6 +1312,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 8402362050502676790, guid: 7b3379a1dd28a7b45b28752b23e15179, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402362050502676790, guid: 7b3379a1dd28a7b45b28752b23e15179, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402362050502676790, guid: 7b3379a1dd28a7b45b28752b23e15179, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -109020865
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b3379a1dd28a7b45b28752b23e15179, type: 3}
 --- !u!1 &1657137845 stripped

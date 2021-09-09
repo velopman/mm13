@@ -29,5 +29,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/test/test_wall_jump.unity
     guid: 419ee83ab82d85a4799a6a98c466813d
+  - enabled: 1
+    path: Assets/Scenes/test/test_large.unity
+    guid: fd888667111c0824997051a5f3bc3634
+  - enabled: 1
+    path: Assets/Scenes/test/test_puzzle.unity
+    guid: b0f155c8c9f4e264897d20c803dc4872
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a3692b4d322de0147a3fb60dceec32f0, type: 2}

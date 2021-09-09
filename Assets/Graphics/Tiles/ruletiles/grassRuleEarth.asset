@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: GrassRule
+  m_Name: grassRuleEarth
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: -2800059328254981206, guid: 40fee1884fc7b1147aff75e96371e4b0, type: 3}
   m_DefaultGameObject: {fileID: 0}
@@ -18,10 +18,10 @@ MonoBehaviour:
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: -2800059328254981206, guid: 40fee1884fc7b1147aff75e96371e4b0, type: 3}
-    - {fileID: -5297998888000467176, guid: 40fee1884fc7b1147aff75e96371e4b0, type: 3}
-    - {fileID: -2237158888019288574, guid: 40fee1884fc7b1147aff75e96371e4b0, type: 3}
-    - {fileID: -5659554034552566394, guid: 40fee1884fc7b1147aff75e96371e4b0, type: 3}
+    - {fileID: -7617543675883167014, guid: f988f61887f31dd4f9026fce4a79c7cf, type: 3}
+    - {fileID: 1197156283346358540, guid: f988f61887f31dd4f9026fce4a79c7cf, type: 3}
+    - {fileID: 6068996549943455502, guid: f988f61887f31dd4f9026fce4a79c7cf, type: 3}
+    - {fileID: 6954064124372336250, guid: f988f61887f31dd4f9026fce4a79c7cf, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1

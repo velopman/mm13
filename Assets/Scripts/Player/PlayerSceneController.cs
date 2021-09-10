@@ -88,9 +88,16 @@ public class PlayerSceneController : MonoBehaviour
 
     // Callback methods
 
-    private void onDeath(HealthController self)
+    private void onDeath(HealthController self, bool lethal)
     {
-        this.transform.position = this.currentScene.RespawnLocation(this.entryLocation);
+        if (lethal)
+        {
+            this.data.Load();
+        }
+        else
+        {
+            this.transform.position = this.currentScene.RespawnLocation(this.entryLocation);
+        }
     }
 
     private void onLoad(PlayerSaveDataController.PlayerData data)

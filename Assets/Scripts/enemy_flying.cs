@@ -26,7 +26,7 @@ public class enemy_flying : enemy_controller {
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "Player"){
             var health = other.gameObject.GetComponent<HealthController>();
-            health.damage(1);
+            health.damage(1, this.dealLethal);
         }
     }
 
@@ -46,7 +46,7 @@ public class enemy_flying : enemy_controller {
     }
 
     // Callback methods
-    void death(HealthController self)
+    void death(HealthController self, bool lethal)
     {
         Destroy(this.gameObject);
     }

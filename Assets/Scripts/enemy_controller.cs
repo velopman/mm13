@@ -5,6 +5,8 @@ using TMPro;
 
 public class enemy_controller : MonoBehaviour
 {
+    public bool dealLethal;
+
     private Transform player;
     private Transform eyeLocation;
     private int health;
@@ -60,7 +62,7 @@ public class enemy_controller : MonoBehaviour
         if(isFacingLeft) {
             castDist = -distance;
         }
-        
+
         Vector2 endPos = eyeLocation.position + Vector3.right * castDist;
         RaycastHit2D hit = Physics2D.Linecast(eyeLocation.position, endPos, 1 << LayerMask.NameToLayer(layer));
         if(hit.collider != null){
@@ -79,9 +81,9 @@ public class enemy_controller : MonoBehaviour
     protected bool Hearing(float distance, string gameObjectName) {
         bool val = false;
         Transform got = GameObject.Find(gameObjectName).transform;
-        
+
         var objectDistance = (got.position - transform.position).magnitude;
-        
+
         if(objectDistance < distance) {
             val = true;
         }

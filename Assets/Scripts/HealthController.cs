@@ -5,7 +5,7 @@ class HealthController : MonoBehaviour
     public delegate void OnDamaged(HealthController self, int health);
     public OnDamaged onDamaged;
 
-    public delegate void OnDeath(HealthController self);
+    public delegate void OnDeath(HealthController self, bool lethal);
     public OnDeath onDeath;
 
     public int maxHealth = 1;
@@ -22,7 +22,7 @@ class HealthController : MonoBehaviour
 
     // Public methods
 
-    public void damage(int amount)
+    public void damage(int amount, bool lethal = false)
     {
         this.health = Mathf.Max(0, this.health - amount);
 
@@ -33,7 +33,7 @@ class HealthController : MonoBehaviour
 
         if (this.health == 0 && this.onDeath != null)
         {
-            this.onDeath(this);
+            this.onDeath(this, lethal);
         }
     }
 }

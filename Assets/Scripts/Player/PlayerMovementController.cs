@@ -176,7 +176,7 @@ public class PlayerMovementController : MonoBehaviour
 
     // Callback methods
 
-    private void onDeath(HealthController self)
+    private void onDeath(HealthController self, bool lethal)
     {
         this.rigidBody.velocity = Vector2.zero;
         this.rigidBody.gravityScale = 1f;

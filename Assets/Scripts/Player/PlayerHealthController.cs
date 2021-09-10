@@ -16,20 +16,21 @@ class PlayerHealthController : HealthController
 
 
     // Callback methods
-    void death(HealthController self)
+
+    void death(HealthController self, bool lethal)
     {
         this.health = this.maxHealth;
     }
 
 
-    // Test methods
+    // Test callback methods
 
     void debugDamaged(HealthController self, int health)
     {
         Debug.Log("Damaged, health remaining: " + health);
     }
 
-    void debugDeath(HealthController self)
+    void debugDeath(HealthController self, bool lethal)
     {
         Debug.Log("Deadededed");
     }

@@ -10,6 +10,6 @@ public class DefaultSceneLoader : MonoBehaviour
 
     void Awake()
     {
-        SceneManager.LoadSceneAsync(this.defaultScene.ToString().ToLower(), LoadSceneMode.Additive);
+        // SceneManager.LoadSceneAsync(this.defaultScene.ToString().ToLower(), LoadSceneMode.Additive);
     }
 }

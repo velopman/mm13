@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Scene : MonoBehaviour
 {
@@ -7,21 +6,21 @@ public class Scene : MonoBehaviour
     public SceneName[] adjacent;
 
     private SceneSpawnLocation[] spawnLocations;
+    private SavePoint savePoint;
 
-    void OnValidate()
-    {
-        // var tilemap = this.GetComponentInChildren<Tilemap>();
-        // Debug.Log("[" + this.identifer.ToString() + "]" + (this.transform.position + tilemap.cellBounds.center));
-        // this.transform.position += tilemap.cellBounds.center - new Vector3(0f, 0f, .5f);
-        // tilemap.tileAnchor -= tilemap.cellBounds.center;
-    }
 
-    void Start()
+    // Lifecycle methods
+
+    void Awake()
     {
         this.spawnLocations = this.GetComponentsInChildren<SceneSpawnLocation>();
+        this.savePoint = this.GetComponentInChildren<SavePoint>();
     }
 
-    public Vector2 respawn_location(Vector2 entry)
+
+    // Public methods
+
+    public Vector2 RespawnLocation(Vector2 entry)
     {
         Vector2 closest = Vector2.positiveInfinity;
 
@@ -34,5 +33,15 @@ public class Scene : MonoBehaviour
         }
 
         return closest;
+    }
+
+    public Vector2 savePointLocation()
+    {
+        if (this.savePoint)
+        {
+            return this.savePoint.transform.position;
+        }
+
+        return this.spawnLocations[0].transform.position;
     }
 }

@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5200980510639772757, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5200980510639772757, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
       propertyPath: m_LocalPosition.x
@@ -380,6 +380,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1334089745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5200980510639772761, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+  m_PrefabInstance: {fileID: 81420906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1334089746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334089745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c7ec0e38b930341ab2a7e93e35c78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveName: save_file
 --- !u!1 &1380080578
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +564,7 @@ Transform:
   m_Children:
   - {fileID: 617890635}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1762005471
 MonoBehaviour:

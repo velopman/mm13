@@ -9,4 +9,5 @@ public enum SceneName {
     TEST_HORIZONTAL_JUMP,
     TEST_PUZZLE,
     TEST_LARGE,
+    TEST_SAVE,
 };

@@ -72,4 +72,10 @@ public class CameraConfiner : MonoBehaviour
             (Vector2)bounds.size - this.screenSize
         );
     }
+
+    public void SetCameraPosition(Vector3 position)
+    {
+        position.z = this.transform.position.z;
+        this.transform.position = position;
+    }
 }

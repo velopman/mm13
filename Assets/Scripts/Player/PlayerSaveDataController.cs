@@ -27,6 +27,7 @@ class PlayerSaveDataController : MonoBehaviour
     public delegate void OnLoad(PlayerData data);
     public OnLoad onLoad;
 
+    public SceneName defaultScene;
     public string saveName = "save_file";
 
     private PlayerData data;
@@ -91,6 +92,7 @@ class PlayerSaveDataController : MonoBehaviour
         else
         {
             this.data = new PlayerData();
+            this.data.currentScene = this.defaultScene;
         }
 
         if (this.onLoad != null)

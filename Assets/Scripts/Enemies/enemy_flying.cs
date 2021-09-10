@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class enemy_flying : enemy_controller {
-    private Vector2 flyForce;
-    private Vector2 fallForce;
+    [SerializeField] GameObject particleSystem;
+    
+    private int flySpeed;
+    private int flyForce;
     private bool goingDown;
 
     void Start(){
         StartInit(5f, 3f, 2f, 1f, 10);
+        deathParticle = particleSystem;
         goingDown = true;
-        flyForce = new Vector2(0,30.0f);
-        fallForce = new Vector2(0,-10.0f);
-
-        var health = this.GetComponent<HealthController>();
-        health.onDeath += this.death;
+        flySpeed = 2;
+        flyForce = 5000;
     }
 
 
@@ -27,6 +27,8 @@ public class enemy_flying : enemy_controller {
         if(other.gameObject.tag == "Player"){
             var health = other.gameObject.GetComponent<HealthController>();
             health.damage(1, this.dealLethal);
+            rb2d.AddForce(new Vector2(0, flyForce), ForceMode2D.Force);
+            goingDown = true;
         }
     }
 
@@ -38,16 +40,10 @@ public class enemy_flying : enemy_controller {
             goingDown = true;
         }
 
-        if(!goingDown){
-            rb2d.AddForce(flyForce, ForceMode2D.Force);
+        if(goingDown){
+            rb2d.velocity = new Vector2(rb2d.velocity.x, -flySpeed);        
         } else{
-            rb2d.AddForce(fallForce, ForceMode2D.Force);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, flySpeed); 
         }
-    }
-
-    // Callback methods
-    void death(HealthController self, bool lethal)
-    {
-        Destroy(this.gameObject);
     }
 }

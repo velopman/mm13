@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2587274b339be1745bba20efbbf4450a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dealLethal: 0
+  particleSystem: {fileID: 7052867407429379905, guid: 3d8694f945461e04db6842a2c2e710b4, type: 3}
 --- !u!50 &1933670703064052253
 Rigidbody2D:
   serializedVersion: 4
@@ -290,7 +292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

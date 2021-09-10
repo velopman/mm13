@@ -9,7 +9,6 @@ public class enemy_controller : MonoBehaviour
 
     private Transform player;
     private Transform eyeLocation;
-    private int health;
     private TextMeshPro healthValueText;
 
     protected float visionRange;
@@ -20,6 +19,7 @@ public class enemy_controller : MonoBehaviour
     protected float movementDistance;
 
     protected Rigidbody2D rb2d;
+    protected GameObject deathParticle;
 
     // Update is called once per frame
     protected void UpdateCall(){
@@ -32,22 +32,23 @@ public class enemy_controller : MonoBehaviour
                 StopChasingPlayer();
             }
         }
-        healthValueText.text = health.ToString();
     }
 
     // All enemy start with this
     protected void StartInit(float vr, float hr, float ms, float md, int h){
         player = GameObject.Find("Player").GetComponent<Transform>();
         eyeLocation = this.gameObject.transform.GetChild(0).GetComponent<Transform>();
+        var health = this.GetComponent<HealthController>();
+        health.onDeath += this.death;
         healthValueText = this.gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshPro>();
-        healthValueText.text = health.ToString();
+        //healthValueText.text = health.ToString();
         rb2d = GetComponent<Rigidbody2D>();
         startPos = transform.position;
         visionRange = vr;
         hearingRange = hr;
         moveSpeed = ms;
         movementDistance = md;
-        health = h;
+
         if(transform.localScale.x == 1){
             isFacingLeft = true;
         } else{
@@ -94,18 +95,27 @@ public class enemy_controller : MonoBehaviour
     protected void ChasePlayer(){
         if(transform.position.x < player.position.x){
             // enemy to the left of player
-            rb2d.velocity = new Vector2(moveSpeed, 0);
+            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
             transform.localScale = new Vector2(-1,1);
             isFacingLeft = false;
         } else{
             // enemy to the right of player (or on top of it)
-            rb2d.velocity = new Vector2(-moveSpeed,0);
+            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
             transform.localScale = new Vector2(1,1);
             isFacingLeft = true;
         }
     }
 
     protected void StopChasingPlayer(){
-        rb2d.velocity = Vector2.zero;
+        rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+    }
+
+    // Callback methods
+    void death(HealthController self, bool lethal)
+    {
+        if(deathParticle != null){
+            Instantiate(deathParticle, transform.position, transform.rotation);
+        }
+        Destroy(this.gameObject);
     }
 }

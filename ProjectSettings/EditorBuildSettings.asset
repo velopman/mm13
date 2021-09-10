@@ -35,5 +35,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/test/test_puzzle.unity
     guid: b0f155c8c9f4e264897d20c803dc4872
+  - enabled: 1
+    path: Assets/Scenes/test/test_save.unity
+    guid: 1818b2624cd77ad46a62f557adfb6d62
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a3692b4d322de0147a3fb60dceec32f0, type: 2}

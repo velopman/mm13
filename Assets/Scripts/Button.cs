@@ -21,10 +21,10 @@ public class Button : MonoBehaviour
             if(secondsInactive > 0){
                 StartCoroutine(ReActivate(secondsInactive));
             }
-            this.transform.gameObject.GetComponent<Collider2D>().enabled = false;
             sr.color = inactiveColor;      
+            this.transform.gameObject.GetComponent<Collider2D>().enabled = false;
         }
-    }
+    }            
 
     IEnumerator ReActivate(int seconds){
         yield return new WaitForSeconds(seconds);

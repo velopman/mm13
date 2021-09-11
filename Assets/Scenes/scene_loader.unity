@@ -397,8 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c7ec0e38b930341ab2a7e93e35c78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScene: 1000
+  defaultScene: 1
   saveName: save_file
+  loadFromFile: 0
 --- !u!1 &1380080578
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ class PlayerSaveDataController : MonoBehaviour
 
     public SceneName defaultScene;
     public string saveName = "save_file";
+    public bool loadFromFile;
 
     private PlayerData data;
 
@@ -80,7 +81,7 @@ class PlayerSaveDataController : MonoBehaviour
     {
         string path = Application.persistentDataPath + "/" + this.saveName;
 
-        if(File.Exists(path))
+        if(File.Exists(path) && this.loadFromFile)
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);

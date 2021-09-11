@@ -1,10 +1,12 @@
 public enum SceneName {
     NONE,
-    FOREST_SPAWN_ROOM = 1000,
+    FOREST_SPAWN_ROOM = 1,
     FOREST_LEFT_ONE,
     AIR_ENTRY_ROOM,
-    FOREST_LEFT_TWO
-    /* TEST_SPAWN_ROOM = 1000,
+    FOREST_LEFT_TWO,
+
+
+    TEST_SPAWN_ROOM = 1000,
     TEST_VERTICAL_JUMP,
     TEST_HANGING,
     TEST_WALL_JUMP,
@@ -13,5 +15,5 @@ public enum SceneName {
     TEST_HORIZONTAL_JUMP,
     TEST_PUZZLE,
     TEST_LARGE,
-    TEST_SAVE, */
+    TEST_SAVE
 };

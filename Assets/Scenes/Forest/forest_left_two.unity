@@ -2602,8 +2602,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c97c5edc26a9ed49841a8acf142c0bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identifer: 1003
-  adjacent: e9030000
+  identifer: 4
+  adjacent: 02000000
 --- !u!4 &1927835305
 Transform:
   m_ObjectHideFlags: 0

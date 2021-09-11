@@ -8,34 +8,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/scene_loader.unity
     guid: 26aaf7b9cc9a92b4695c44ac95141b23
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_spawn_room.unity
     guid: 40d63c9417793cf4b9e09f34399c54a2
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_falling.unity
     guid: b6988ace4b97f214996c2c3a077d6522
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_horizontal_jump.unity
     guid: 35d4e6ec67d6e0f4092114758f72b146
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_hanging.unity
     guid: 17685fb4713c8c74badf217b5a6eaf33
   - enabled: 1
     path: Assets/Scenes/test/test_transition.unity
     guid: da17921e0959a904c96fed27de836ffa
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_vertical_jump.unity
     guid: 138c5184d41721842aba49fc13e95efa
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_wall_jump.unity
     guid: 419ee83ab82d85a4799a6a98c466813d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_large.unity
     guid: fd888667111c0824997051a5f3bc3634
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_puzzle.unity
     guid: b0f155c8c9f4e264897d20c803dc4872
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/test/test_save.unity
     guid: 1818b2624cd77ad46a62f557adfb6d62
   - enabled: 1
@@ -47,5 +47,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Air/air_entry_room.unity
     guid: ebf5d857ca56a0447a7917cab18e9391
+  - enabled: 1
+    path: Assets/Scenes/Forest/forest_left_two.unity
+    guid: cee6e231f3c046245979457ee8a5feb7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a3692b4d322de0147a3fb60dceec32f0, type: 2}

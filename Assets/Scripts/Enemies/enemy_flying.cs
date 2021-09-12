@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class enemy_flying : enemy_controller {
-    [SerializeField] GameObject particleSystem;
+    [SerializeField] GameObject ps;
     
     private int flySpeed;
     private int flyForce;
@@ -11,10 +11,10 @@ public class enemy_flying : enemy_controller {
 
     void Start(){
         StartInit(5f, 3f, 2f, 1f, 10);
-        deathParticle = particleSystem;
+        deathParticle = ps;
         goingDown = true;
         flySpeed = 2;
-        flyForce = 5000;
+        flyForce = 1000;
     }
 
 
@@ -27,7 +27,8 @@ public class enemy_flying : enemy_controller {
         if(other.gameObject.tag == "Player"){
             var health = other.gameObject.GetComponent<HealthController>();
             health.damage(1, this.dealLethal);
-            rb2d.AddForce(new Vector2(0, flyForce), ForceMode2D.Force);
+            var targetDir = other.gameObject.GetComponent<Rigidbody2D>().velocity;
+            rb2d.AddForce(targetDir * flyForce, ForceMode2D.Force);
             goingDown = true;
         }
     }

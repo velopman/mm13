@@ -85,6 +85,13 @@ public class PlayerSceneController : MonoBehaviour
         }
     }
 
+    void unloadCurrent()
+    {
+        if (this.currentScene == null) return;
+
+        SceneManager.UnloadSceneAsync(this.currentScene.identifer.ToString().ToLower());
+    }
+
 
     // Callback methods
 
@@ -92,7 +99,7 @@ public class PlayerSceneController : MonoBehaviour
     {
         if (lethal)
         {
-            this.data.Load();
+            this.data.Load(true);
         }
         else
         {
@@ -104,6 +111,7 @@ public class PlayerSceneController : MonoBehaviour
     {
         if (this.currentScene)
         {
+            this.unloadCurrent();
             this.unloadAdjacent();
             this.currentScene = null;
         }

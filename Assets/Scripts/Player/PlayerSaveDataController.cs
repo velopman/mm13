@@ -77,11 +77,11 @@ class PlayerSaveDataController : MonoBehaviour
         stream.Close();
     }
 
-    public void Load()
+    public void Load(bool loadOverride = false)
     {
         string path = Application.persistentDataPath + "/" + this.saveName;
 
-        if(File.Exists(path) && this.loadFromFile)
+        if(File.Exists(path) && (this.loadFromFile || loadOverride))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);

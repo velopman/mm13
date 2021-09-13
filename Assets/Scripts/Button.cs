@@ -6,14 +6,12 @@ public class Button : MonoBehaviour
 {
     [SerializeField] int secondsInactive;
     SpriteRenderer sr;
-    Color activeColor;
-    Color inactiveColor;
+    [SerializeField] Sprite activeSprite;
+    [SerializeField] Sprite inactiveSprite;
 
     private void Start() {
         sr = GetComponent<SpriteRenderer>();
-        activeColor = Color.green;
-        sr.color = activeColor;
-        inactiveColor = Color.red;
+        sr.sprite = activeSprite;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -21,7 +19,7 @@ public class Button : MonoBehaviour
             if(secondsInactive > 0){
                 StartCoroutine(ReActivate(secondsInactive));
             }
-            sr.color = inactiveColor;      
+            sr.sprite = inactiveSprite;      
             this.transform.gameObject.GetComponent<Collider2D>().enabled = false;
         }
     }            
@@ -29,7 +27,7 @@ public class Button : MonoBehaviour
     IEnumerator ReActivate(int seconds){
         yield return new WaitForSeconds(seconds);
         this.transform.gameObject.GetComponent<Collider2D>().enabled = true;
-        sr.color = activeColor; 
+        sr.sprite = activeSprite; 
     }
 
 }

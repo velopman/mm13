@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8402362050450986871}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4, y: -0.307, z: 0}
-  m_LocalScale: {x: 0.7307, y: 0.3638, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8402362050502676788}
   m_RootOrder: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: -109020865
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.64893913, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a88281f7747423d458cf6b8c65256f3d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsInactive: 0
+  activeSprite: {fileID: 21300000, guid: a88281f7747423d458cf6b8c65256f3d, type: 3}
+  inactiveSprite: {fileID: 21300000, guid: 255a99241c7839940a42ecc72e931fe6, type: 3}
 --- !u!58 &8402362050450986859
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 8402362050502676789}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.48, y: -0.9726, z: 0}
-  m_LocalScale: {x: 1, y: 2.0948, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8402362050450986870}
   m_Father: {fileID: 0}
@@ -189,8 +191,8 @@ SpriteRenderer:
   m_SortingLayerID: -109020865
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.6591687, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 2eb66882eea861e48ae83751978d404b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -212,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0e066f4a295994c994867ac07975a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeSprite: {fileID: 21300000, guid: 84e16f8fc395d854b9e0dcb2bccb78bf, type: 3}
+  inactiveSprite: {fileID: 21300000, guid: 2eb66882eea861e48ae83751978d404b, type: 3}
 --- !u!61 &8402362050502676777
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -229,7 +233,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 3}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

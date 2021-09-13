@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    SpriteRenderer sr;
-    Color activeColor;
-    Color inactiveColor;
+    private SpriteRenderer sr;
+    [SerializeField] Sprite activeSprite;
+    [SerializeField] Sprite inactiveSprite;
 
     private void Start() {
         sr = GetComponent<SpriteRenderer>();
-        activeColor = Color.green;
-        inactiveColor = Color.red;
-        sr.color = inactiveColor;
+        sr.sprite = inactiveSprite;
     }
 
     private void Update() {
@@ -24,10 +22,10 @@ public class Door : MonoBehaviour
         }
         if(countChild <=0){
             transform.GetComponent<BoxCollider2D>().enabled = false;
-            sr.color = activeColor;
+            sr.sprite = activeSprite;
         } else {
             transform.GetComponent<BoxCollider2D>().enabled = true;
-            sr.color = inactiveColor;
+            sr.sprite = inactiveSprite;
         }
     }
 }

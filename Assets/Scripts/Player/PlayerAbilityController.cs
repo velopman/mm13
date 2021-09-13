@@ -34,11 +34,8 @@ public class PlayerAbilityController : MonoBehaviour
 
     public void UnlockAbility(PlayerAbility ability)
     {
-        Debug.Log(this.unlockedAbilities);
         this.unlockedAbilities |= ability;
         this.data.SetUnlockedAbilities(this.unlockedAbilities);
-        Debug.Log(ability);
-        Debug.Log(this.unlockedAbilities);
     }
 
 

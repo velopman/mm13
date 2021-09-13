@@ -17,6 +17,7 @@ class PlayerSaveDataController : MonoBehaviour
     {
         public List<SceneData> visitedScenes;
         public SceneName currentScene;
+        public PlayerAbility unlockedAbilities;
 
         public PlayerData()
         {
@@ -50,6 +51,11 @@ class PlayerSaveDataController : MonoBehaviour
         }
 
         this.data.currentScene = scene;
+    }
+
+    public void SetUnlockedAbilities(PlayerAbility unlockedAbilities)
+    {
+        this.data.unlockedAbilities = unlockedAbilities;
     }
 
     public bool HasVisitedScene(SceneName scene)

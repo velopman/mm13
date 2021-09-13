@@ -8,6 +8,7 @@ public enum MovementState { DEFAULT, HANGING, POST_HANGING }
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMovementController : MonoBehaviour
 {
+    private PlayerAbilityController ability;
     private PlayerClingController cling;
     private PlayerCollisionController collision;
     private PlayerInputController input;
@@ -28,6 +29,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void Start()
     {
+        this.ability = this.GetComponent<PlayerAbilityController>();
         this.cling = this.GetComponent<PlayerClingController>();
         this.collision = this.GetComponent<PlayerCollisionController>();
         this.input = this.GetComponent<PlayerInputController>();
@@ -94,6 +96,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void dash()
     {
+        if (!this.ability.Has(PlayerAbility.DASH)) return;
         if (!this.input.dashTriggered || this.dashVelocity.magnitude > 0f) return;
 
         this.input.ResetDash();
@@ -115,6 +118,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void handleCling()
     {
+        if (!this.ability.Has(PlayerAbility.HANG)) return;
         if (!this.cling.canCling) return;
         if (this.input.direction != this.cling.direction) return;
         if (this.rigidBody.velocity.y > 10f) return;
@@ -153,6 +157,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void jumpWall()
     {
+        if (!this.ability.Has(PlayerAbility.WALL_JUMP)) return;
         if (!this.input.jumpTriggered || this.collision.wasOnGround || !this.collision.onWall) return;
 
         this.input.ResetJump();

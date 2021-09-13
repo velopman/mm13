@@ -32,7 +32,7 @@ public class PlayerSceneController : MonoBehaviour
         SceneManager.sceneLoaded += this.onSceneLoaded;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (this.loading) return;
 

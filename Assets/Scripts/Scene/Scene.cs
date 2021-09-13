@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 
 public class Scene : MonoBehaviour
 {
@@ -43,5 +45,112 @@ public class Scene : MonoBehaviour
         }
 
         return this.spawnLocations[0].transform.position;
+    }
+
+
+    // Editor methods
+
+    public void UpdateTrigger()
+    {
+        var tilemap = this.GetComponentInChildren<Tilemap>();
+        tilemap.CompressBounds();
+        var bounds = tilemap.localBounds;
+
+        var collider = this.GetComponent<BoxCollider2D>();
+        collider.offset = bounds.center;
+        collider.size = bounds.size;
+
+        // for ( int y = (int) bounds.min.y; y < bounds.max.y; ++y )
+        // {
+        //     for ( int x = (int) bounds.min.x; x < bounds.max.x; ++x )
+        //     {
+        //         var tile = tilemap.GetTile(new Vector3Int(x, y, 0));
+        //         tile.GetTileData()
+        //     }
+        // }
+    }
+
+    public void UpdateSpawnLocations()
+    {
+        foreach (var spawnLoaction in this.GetComponentsInChildren<SceneSpawnLocation>())
+        {
+            DestroyImmediate(spawnLoaction.gameObject);
+        }
+
+
+        var tilemap = this.GetComponentInChildren<Tilemap>();
+        tilemap.CompressBounds();
+        var bounds = tilemap.localBounds;
+
+        // Create spawn locations on left
+        for (var position = new Vector3Int((int) bounds.min.x, (int) bounds.min.y, 0); position.y < bounds.max.y; ++position.y)
+        {
+            if (tilemap.HasTile(position)) continue;
+
+            var start = position;
+            do
+            {
+                ++position.y;
+            }
+            while (position.y < bounds.max.y && !tilemap.HasTile(position));
+
+            this.createSpawnLocation("left", start, position, Vector3.right);
+        }
+
+        // Create spawn locations on right
+        for (var position = new Vector3Int((int) bounds.max.x - 1, (int) bounds.min.y, 0); position.y < bounds.max.y; ++position.y)
+        {
+            if (tilemap.HasTile(position)) continue;
+
+            var start = position;
+            do
+            {
+                ++position.y;
+            }
+            while (position.y < bounds.max.y && !tilemap.HasTile(position));
+
+            this.createSpawnLocation("right", start, position, Vector3.zero);
+        }
+
+        // Create spawn locations on roof
+        for (var position = new Vector3Int((int) bounds.min.x, (int) bounds.max.y - 1, 0); position.x < bounds.max.x; ++position.x)
+        {
+            if (tilemap.HasTile(position)) continue;
+
+            var start = position;
+            do
+            {
+                ++position.x;
+            }
+            while (position.x < bounds.max.x && !tilemap.HasTile(position));
+
+            this.createSpawnLocation("roof", start, position, Vector3.zero);
+        }
+
+        // Create spawn locations on floor
+        for (var position = new Vector3Int((int) bounds.min.x, (int) bounds.min.y, 0); position.x < bounds.max.x; ++position.x)
+        {
+            if (tilemap.HasTile(position)) continue;
+
+            var start = position;
+            do
+            {
+                ++position.x;
+            }
+            while (position.x < bounds.max.x && !tilemap.HasTile(position));
+
+            this.createSpawnLocation("floor", start, position, Vector3.up);
+        }
+    }
+
+    private void createSpawnLocation(string name, Vector3 start, Vector3 end, Vector3 offset)
+    {
+        var delta = end - start;
+
+        var go = new GameObject("spawn_location (" + name + ")");
+        go.transform.parent = this.transform;
+        go.transform.localPosition = start + delta * .5f + offset;
+
+        go.AddComponent<SceneSpawnLocation>();
     }
 }

@@ -4,6 +4,9 @@ public enum SceneName {
     FOREST_LEFT_ONE,
     AIR_ENTRY_ROOM,
     FOREST_LEFT_TWO,
+    FOREST_LEFT_THREE,
+    FOREST_LEFT_FOUR,
+    FOREST_LEFT_FIVE,
 
 
     TEST_SPAWN_ROOM = 1000,

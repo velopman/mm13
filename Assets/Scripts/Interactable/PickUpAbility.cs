@@ -7,13 +7,13 @@ public class PickUpAbility : PickUp
 
     // Lifecylce methods
 
-    void OnTriggerEnter2D(Collider2D collider)
+    protected override void OnTriggerEnter2D(Collider2D collider)
     {
         var ability = collider.GetComponent<PlayerAbilityController>();
         if (ability == null) return;
 
         ability.UnlockAbility(this.type);
 
-        Destroy(this.gameObject);
+        base.OnTriggerEnter2D(collider);
     }
 }

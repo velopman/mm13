@@ -10,6 +10,7 @@ class PlayerSaveDataController : MonoBehaviour
     public struct SceneData
     {
         public SceneName name;
+        public int pickedUp;
     }
 
     [Serializable]
@@ -62,6 +63,30 @@ class PlayerSaveDataController : MonoBehaviour
     public void SetScore(int score)
     {
         this.data.score = score;
+    }
+
+    public void PickUp(SceneName scene, int pickUp)
+    {
+        for (int i = 0; i < this.data.visitedScenes.Count; ++i)
+        {
+            if (this.data.visitedScenes[i].name != scene) continue;
+
+            var visitedScene = this.data.visitedScenes[i];
+            visitedScene.pickedUp |= pickUp;
+
+            this.data.visitedScenes[i] = visitedScene;
+
+            return;
+        }
+    }
+
+    public int GetPickedUpForScene(SceneName scene)
+    {
+        var visitedScene = this.data.visitedScenes.Find(p => p.name == scene);
+
+        if (visitedScene.name != scene) return 0;
+
+        return visitedScene.pickedUp;
     }
 
     public bool HasVisitedScene(SceneName scene)

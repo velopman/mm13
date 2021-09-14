@@ -122,10 +122,13 @@ public class PlayerSceneController : MonoBehaviour
 
     private void onSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
     {
-        if (!this.loading) return;
-
         var gameScene = scene.GetRootGameObjects()[0].GetComponent<Scene>();
         if (!gameScene) return;
+
+        var pickedUp = this.data.GetPickedUpForScene(gameScene.identifer);
+        gameScene.PickedUp(pickedUp);
+
+        if (!this.loading) return;
 
         var location = gameScene.savePointLocation();
         this.transform.position = location;

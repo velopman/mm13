@@ -17,10 +17,34 @@ public class Scene : MonoBehaviour
     {
         this.spawnLocations = this.GetComponentsInChildren<SceneSpawnLocation>();
         this.savePoint = this.GetComponentInChildren<SavePoint>();
+
+        var pickups = this.GetComponentsInChildren<PickUp>();
+
+        for (int i = 0; i < pickups.Length; ++i)
+        {
+            pickups[i].scene = this.identifer;
+            pickups[i].id = 1 << i;
+        }
     }
 
 
     // Public methods
+
+
+    public void PickedUp(int pickedUp)
+    {
+        var pickups = this.GetComponentsInChildren<PickUp>();
+
+        for (int i = 0; i < pickups.Length; ++i)
+        {
+            var identifier = 1 << i;
+
+            if ((pickedUp & identifier) != 0)
+            {
+                Destroy(pickups[i].gameObject);
+            }
+        }
+    }
 
     public Vector2 RespawnLocation(Vector2 entry)
     {

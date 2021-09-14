@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c7ec0e38b930341ab2a7e93e35c78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultScene: 1
+  defaultScene: 1000
   saveName: save_file
   loadFromFile: 0
 --- !u!114 &1334089747
@@ -493,6 +493,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02828fad728ec804ba14ede7d1d2a9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1334089748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334089745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882a652dce823604d97ec4b95c5cbd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1380080578

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickUpAbility : MonoBehaviour
+public class PickUpAbility : PickUp
 {
     public PlayerAbility type;
 

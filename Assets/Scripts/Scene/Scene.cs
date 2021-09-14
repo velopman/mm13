@@ -30,6 +30,22 @@ public class Scene : MonoBehaviour
 
     // Public methods
 
+    public bool HasPickUp()
+    {
+        return this.GetComponentsInChildren<PickUpPoint>().Length > 0;
+    }
+
+
+    public bool HasEnemy()
+    {
+        return this.GetComponentsInChildren<enemy_controller>().Length > 0;
+    }
+
+    public bool HasFountain()
+    {
+        return this.GetComponentsInChildren<SavePoint>().Length > 0;
+    }
+
 
     public void PickedUp(int pickedUp)
     {

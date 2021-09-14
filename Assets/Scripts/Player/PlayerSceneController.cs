@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSceneController : MonoBehaviour
 {
+    public delegate void OnSceneChanged(Scene scene);
+    public OnSceneChanged onSceneChanged;
+
     public LayerMask layerScene;
     public float collisionRadius = .25f;
 
@@ -61,6 +64,11 @@ public class PlayerSceneController : MonoBehaviour
         this.loadAdjacent(previousSceneIdentifier);
 
         this.data.VisitScene(this.currentScene.identifer);
+
+        if (this.onSceneChanged != null)
+        {
+            this.onSceneChanged(this.currentScene);
+        }
     }
 
     // Private methods

@@ -12,6 +12,9 @@ public enum PlayerAbility
 
 public class PlayerAbilityController : MonoBehaviour
 {
+    public delegate void OnAbilityUnlocked(PlayerAbility ability);
+    public OnAbilityUnlocked onAbilityUnlocked;
+
     private PlayerSaveDataController data;
     private PlayerAbility unlockedAbilities;
 
@@ -36,6 +39,11 @@ public class PlayerAbilityController : MonoBehaviour
     {
         this.unlockedAbilities |= ability;
         this.data.SetUnlockedAbilities(this.unlockedAbilities);
+
+        if (this.onAbilityUnlocked != null)
+        {
+            this.onAbilityUnlocked(ability);
+        }
     }
 
 

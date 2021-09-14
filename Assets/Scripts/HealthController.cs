@@ -5,6 +5,9 @@ class HealthController : MonoBehaviour
     public delegate void OnDamaged(HealthController self, int health);
     public OnDamaged onDamaged;
 
+    public delegate void OnHealthChanged(int health);
+    public OnHealthChanged onHealthChanged;
+
     public delegate void OnDeath(HealthController self, bool lethal);
     public OnDeath onDeath;
 
@@ -29,6 +32,11 @@ class HealthController : MonoBehaviour
         if (this.onDamaged != null)
         {
             this.onDamaged(this, this.health);
+        }
+
+        if (this.onHealthChanged != null)
+        {
+            this.onHealthChanged(this.health);
         }
 
         if (this.health == 0 && this.onDeath != null)

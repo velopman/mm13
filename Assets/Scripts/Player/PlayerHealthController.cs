@@ -20,6 +20,11 @@ class PlayerHealthController : HealthController
     void death(HealthController self, bool lethal)
     {
         this.health = this.maxHealth;
+
+        if (this.onHealthChanged != null)
+        {
+            this.onHealthChanged(this.health);
+        }
     }
 
 

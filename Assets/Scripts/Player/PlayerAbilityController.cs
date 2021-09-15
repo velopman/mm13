@@ -16,7 +16,7 @@ public class PlayerAbilityController : MonoBehaviour
     public OnAbilityUnlocked onAbilityUnlocked;
 
     private PlayerSaveDataController data;
-    private PlayerAbility unlockedAbilities;
+    public PlayerAbility unlockedAbilities;
 
 
     // Lifecycle methods

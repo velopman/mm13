@@ -13,7 +13,7 @@ public class Trap : MonoBehaviour
 
     private void Start() {
         sr = GetComponent<SpriteRenderer>();
-        secondsToInactive = 2;
+        secondsToInactive = 1;
         sr.sprite = inactiveSprite;
     }
 

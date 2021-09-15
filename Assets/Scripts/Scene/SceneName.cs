@@ -34,4 +34,9 @@ public enum SceneName {
     WJP_3,
     WJP_4,
     WJP_5,
+    LGP_1,
+    LGP_2,
+    LGP_3,
+    LGP_4,
+    LGP_5,
 };

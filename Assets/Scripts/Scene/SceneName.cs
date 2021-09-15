@@ -39,4 +39,9 @@ public enum SceneName {
     LGP_3,
     LGP_4,
     LGP_5,
+    DP_1,
+    DP_2,
+    DP_3,
+    DP_4,
+    DP_5,
 };

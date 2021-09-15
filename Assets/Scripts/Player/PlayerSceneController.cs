@@ -1,4 +1,4 @@
-using Cinemachine;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,11 +17,15 @@ public class PlayerSceneController : MonoBehaviour
     private PlayerSaveDataController data;
     private bool loading;
 
+    HashSet<SceneName> loadedScenes;
+
 
     // Lifecycle methods
 
     void Awake()
     {
+        this.loadedScenes = new HashSet<SceneName>();
+
         var health = this.GetComponent<PlayerHealthController>();
         health.onDeath += this.onDeath;
 
@@ -53,6 +57,13 @@ public class PlayerSceneController : MonoBehaviour
             previousSceneIdentifier = this.currentScene.identifer;
 
             this.unloadAdjacent(scene.identifer);
+
+            int i = 0;
+            for (; i < scene.adjacent.Length && scene.adjacent[i] != previousSceneIdentifier; ++i);
+            if (i == scene.adjacent.Length)
+            {
+                this.unloadCurrent();
+            }
         }
 
         this.currentScene = scene;
@@ -71,6 +82,25 @@ public class PlayerSceneController : MonoBehaviour
         }
     }
 
+
+    // Public methods
+
+    public void LoadScene(SceneName scene)
+    {
+        if (this.loadedScenes.Contains(scene)) return;
+
+        SceneManager.LoadSceneAsync(scene.ToString().ToLower(), LoadSceneMode.Additive);
+        this.loadedScenes.Add(scene);
+    }
+
+    public void UnloadScene(SceneName scene)
+    {
+        if (!this.loadedScenes.Contains(scene)) return;
+
+        SceneManager.UnloadSceneAsync(scene.ToString().ToLower());
+        this.loadedScenes.Remove(scene);
+    }
+
     // Private methods
 
     void loadAdjacent(SceneName excluding = SceneName.NONE)
@@ -79,7 +109,7 @@ public class PlayerSceneController : MonoBehaviour
         {
             if (scene == excluding) continue;
 
-            SceneManager.LoadSceneAsync(scene.ToString().ToLower(), LoadSceneMode.Additive);
+            this.LoadScene(scene);
         }
     }
 
@@ -89,7 +119,7 @@ public class PlayerSceneController : MonoBehaviour
         {
             if (scene == excluding) continue;
 
-            SceneManager.UnloadSceneAsync(scene.ToString().ToLower());
+            this.UnloadScene(scene);
         }
     }
 
@@ -97,7 +127,7 @@ public class PlayerSceneController : MonoBehaviour
     {
         if (this.currentScene == null) return;
 
-        SceneManager.UnloadSceneAsync(this.currentScene.identifer.ToString().ToLower());
+        this.UnloadScene(this.currentScene.identifer);
     }
 
 
@@ -124,7 +154,7 @@ public class PlayerSceneController : MonoBehaviour
             this.currentScene = null;
         }
 
-        SceneManager.LoadScene(data.currentScene.ToString().ToLower(), LoadSceneMode.Additive);
+        this.LoadScene(data.currentScene);
         this.loading = true;
     }
 

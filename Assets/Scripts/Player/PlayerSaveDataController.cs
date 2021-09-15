@@ -109,8 +109,6 @@ class PlayerSaveDataController : MonoBehaviour
 
         File.WriteAllText(path + ".json", JsonUtility.ToJson(this.data));
 
-        Debug.Log("Saving");
-
         stream.Close();
     }
 

@@ -19,6 +19,8 @@ public class PlayerSceneController : MonoBehaviour
 
     HashSet<SceneName> loadedScenes;
 
+    private float cooldown;
+
 
     // Lifecycle methods
 
@@ -41,6 +43,12 @@ public class PlayerSceneController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (this.cooldown > 0f)
+        {
+            this.cooldown = Mathf.Max(0f, this.cooldown - Time.fixedDeltaTime);
+            return;
+        }
+
         if (this.loading) return;
 
         var scene_collider = Physics2D.OverlapCircle((Vector2)this.transform.position, this.collisionRadius, this.layerScene);
@@ -75,6 +83,8 @@ public class PlayerSceneController : MonoBehaviour
         this.loadAdjacent(previousSceneIdentifier);
 
         this.data.VisitScene(this.currentScene.identifer);
+
+        this.cooldown = .25f;
 
         if (this.onSceneChanged != null)
         {

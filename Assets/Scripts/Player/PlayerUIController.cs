@@ -19,6 +19,9 @@ public class PlayerUIController : MonoBehaviour
     private int health, score;
     private float deathTimer;
 
+    private bool finished;
+    private float finishedTimer;
+
     // Lifecycle methods
 
     void Start()
@@ -51,11 +54,18 @@ public class PlayerUIController : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.stats.text = "Health: " + this.health + "\nScore: " + this.score;
+        this.stats.text = "Score: " + this.score;
 
 
         this.hasMoved = this.hasMoved || this.input.direction != 0;
         this.hasJumped = this.hasJumped || this.input.jumpTriggered;
+
+        if(this.finishedTimer > 0f)
+        {
+            this.finishedTimer = Mathf.Max(0f, this.finishedTimer - Time.fixedDeltaTime);
+            this.help.text = "Congratulations!\n You have mastered the elements of the forest!";
+            return;
+        }
 
         if (this.deathTimer > 0f)
         {
@@ -168,6 +178,12 @@ public class PlayerUIController : MonoBehaviour
         {
             this.hasFountain = true;
             this.fountainTimer = 3f;
+        }
+
+        if (!this.finished && scene.identifer == SceneName.f_17)
+        {
+            this.finished = true;
+            this.finishedTimer = 3f;
         }
     }
 

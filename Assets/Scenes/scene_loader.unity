@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: defaultScene
       value: 10001
       objectReference: {fileID: 0}
+    - target: {fileID: 1334089746, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
+      propertyPath: loadFromFile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1334089747, guid: f05bd2964c0ab844ebf537fb07d34555, type: 3}
       propertyPath: unlockedAbilities
       value: 0

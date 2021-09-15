@@ -9,8 +9,6 @@ class PlayerHealthController : HealthController
     {
         this.health = this.maxHealth;
 
-        this.onDamaged += this.debugDamaged;
-        this.onDeath += this.debugDeath;
         this.onDeath += this.death;
     }
 
@@ -25,18 +23,5 @@ class PlayerHealthController : HealthController
         {
             this.onHealthChanged(this.health);
         }
-    }
-
-
-    // Test callback methods
-
-    void debugDamaged(HealthController self, int health)
-    {
-        Debug.Log("Damaged, health remaining: " + health);
-    }
-
-    void debugDeath(HealthController self, bool lethal)
-    {
-        Debug.Log("Deadededed");
     }
 }

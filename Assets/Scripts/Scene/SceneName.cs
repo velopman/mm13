@@ -18,5 +18,15 @@ public enum SceneName {
     TEST_HORIZONTAL_JUMP,
     TEST_PUZZLE,
     TEST_LARGE,
-    TEST_SAVE
+    TEST_SAVE,
+
+
+    WORLD = 10000,
+    HUB_SPAWN,
+    HUB_LEFT,
+    HUB_RIGHT,
+    HUB_UP,
+    HUB_UP_LEFT,
+    HUB_DOWN,
+    HUB_DOWN_RIGHT,
 };

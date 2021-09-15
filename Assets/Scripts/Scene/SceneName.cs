@@ -29,4 +29,9 @@ public enum SceneName {
     HUB_UP_LEFT,
     HUB_DOWN,
     HUB_DOWN_RIGHT,
+    WJP_1,
+    WJP_2,
+    WJP_3,
+    WJP_4,
+    WJP_5,
 };

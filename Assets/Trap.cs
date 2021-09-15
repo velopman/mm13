@@ -27,21 +27,21 @@ public class Trap : MonoBehaviour
         if(other.gameObject.tag == "Player"){
             if(sr.sprite == activeSprite){
                 var health = other.gameObject.GetComponent<HealthController>();
-                health.damage(1, true);
+                health.damage(10, false);
                 this.transform.gameObject.GetComponent<Collider2D>().enabled = false;
             }
-        }    
+        }
     }
 
     IEnumerator Activate(int seconds){
         yield return new WaitForSeconds(seconds);
         sr.sprite = activeSprite;
-        StartCoroutine(ReActivate(seconds)); 
+        StartCoroutine(ReActivate(seconds));
     }
 
     IEnumerator ReActivate(int seconds){
         yield return new WaitForSeconds(secondsToInactive);
         this.transform.gameObject.GetComponent<Collider2D>().enabled = true;
-        sr.sprite = inactiveSprite; 
-    }             
+        sr.sprite = inactiveSprite;
+    }
 }
